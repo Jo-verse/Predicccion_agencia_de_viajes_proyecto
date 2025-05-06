@@ -1,41 +1,118 @@
-Ciudad,Temporada,Perfil_viajero,Clasificacion_destino
-"Tokyo, Japón",Primavera,Solitario / Cultura,Ciudad / Cultura
-"París, Francia",Primavera,Pareja / Cultura,Ciudad / Romántico
-"Barcelona, España",Primavera,Pareja / Amigos,Ciudad / Playa / Cultura
-"Roma, Italia",Primavera,Pareja / Cultura,Ciudad / Cultura / Romántico
-"Madrid, España",Primavera,Solitario / Pareja / Cultura,Ciudad / Cultura
-"Amsterdam, Países Bajos",Primavera,Solitario / Pareja / Amigos,Ciudad / Cultura
-"Lisboa, Portugal",Primavera,Pareja / Familia,Ciudad / Cultura / Playa
-"Estambul, Turquía",Primavera,Solitario / Cultura,Ciudad / Cultura / Histórico
-"Buenos Aires, Argentina",Primavera,Familia / Cultura,Ciudad / Cultura
-"Seúl, Corea del Sur",Primavera,Solitario / Cultura,Ciudad / Cultura
-"Cancún, México",Verano,Pareja / Familia / Amigos,Playa / Relax
-"Honolulu, Hawái, EE. UU.",Verano,Pareja / Familia / Solitario,Playa / Naturaleza
-"Río de Janeiro, Brasil",Verano,Pareja / Amigos,Playa / Ciudad / Fiesta
-"Sydney, Australia",Verano,Familia / Solitario,Playa / Ciudad / Naturaleza
-"Bali, Indonesia",Verano,Pareja / Solitario,Playa / Relax / Cultura
-"Dubai, Emiratos Árabes Unidos",Verano,Pareja / Familia,Ciudad / Lujo
-"Marrakech, Marruecos",Verano,Pareja / Solitario,Cultura / Histórico
-"Lima, Perú",Verano,Solitario / Cultura,Ciudad / Cultura / Histórico
-"Cartagena, Colombia",Verano,Pareja / Amigos / Familia,Playa / Cultura
-"Mykonos, Grecia",Verano,Pareja / Amigos,Playa / Fiesta / Relax
-"Nueva York, EE. UU.",Otoño,Solitario / Pareja / Cultura,Ciudad / Cultura
-"Montreal, Canadá",Otoño,Familia / Solitario,Ciudad / Naturaleza
-"Vancouver, Canadá",Otoño,Solitario / Naturaleza,Naturaleza / Ciudad
-"Praga, República Checa",Otoño,Pareja / Cultura,Ciudad / Cultura / Romántico
-"Londres, Reino Unido",Otoño,Solitario / Cultura,Ciudad / Cultura
-"Berlín, Alemania",Otoño,Solitario / Cultura,Ciudad / Cultura / Historia
-"Buenos Aires, Argentina",Otoño,Familia / Cultura,Ciudad / Cultura
-"San Francisco, EE. UU.",Otoño,Solitario / Innovación,Ciudad / Cultura / Tecnología
-"Ciudad de México, México",Otoño,Cultura / Familia,Ciudad / Cultura
-"Zurich, Suiza",Otoño,Solitario / Naturaleza,Ciudad / Naturaleza
-"Moscú, Rusia",Invierno,Solitario / Cultura,Ciudad / Cultura / Invierno
-"Estocolmo, Suecia",Invierno,Solitario / Naturaleza,Ciudad / Invierno
-"Helsinki, Finlandia",Invierno,Solitario / Naturaleza,Ciudad / Invierno
-"Oslo, Noruega",Invierno,Solitario / Naturaleza,Ciudad / Invierno
-"Copenhague, Dinamarca",Invierno,Pareja / Cultura,Ciudad / Cultura
-"Reykjavik, Islandia",Invierno,Solitario / Naturaleza,Naturaleza / Aventura
-"Ginebra, Suiza",Invierno,Familia / Cultura,Ciudad / Naturaleza
-"Ámsterdam, Países Bajos",Invierno,Solitario / Cultura,Ciudad / Cultura
-"Kitzbühel, Austria",Invierno,Pareja / Familia,Nieve / Ski
-"Quebec, Canadá",Invierno,Familia / Solitario,Ciudad / Invierno
+Ciudad,Mejor_Temporada,Perfil_viajero,Entornos,Clasificacion_destino
+Tokyo,Primavera,Solitario/Cultura/Innovación,Ciudad/Naturaleza,Cultura/Tecnología
+París,Primavera,Pareja/Romántico/Cultura,Ciudad,Romántico/Cultura
+Barcelona,Verano,Pareja/Amigos/Playa,Ciudad/Playa,Playa/Fiesta/Cultura
+Roma,Primavera,Pareja/Cultura/Histórico,Ciudad,Cultura/Historia
+Madrid,Otoño,Familia/Cultura/Gastronomía,Ciudad,Cultura/Gastronomía
+Amsterdam,Primavera,Solitario/Pareja/Cultura,Ciudad/Canales,Cultura/Arte
+Lisboa,Primavera,Pareja/Familia/Cultura,Ciudad/Playa,Cultura/Relax
+Estambul,Otoño,Solitario/Cultura/Histórico,Ciudad/Histórico,Cultura/Historia
+Buenos Aires,Primavera,Familia/Cultura/Nocturno,Ciudad,Cultura/Arte
+Seúl,Otoño,Solitario/Tecnología/Cultura,Ciudad/Tecnología,Tecnología/Cultura
+Cancún,Invierno,Pareja/Familia/Amigos,Playa,Relax/Playa
+Honolulu,Invierno,Familia/Solitario/Naturaleza,Playa/Naturaleza,Relax/Naturaleza
+Río de Janeiro,Verano,Pareja/Fiesta/Playa,Playa/Ciudad,Fiesta/Playa
+Sydney,Verano,Familia/Naturaleza/Cultura,Ciudad/Naturaleza,Naturaleza/Cultura
+Bali,Verano,Pareja/Solitario/Relax,Playa/Naturaleza,Relax/Cultura
+Dubai,Invierno,Pareja/Lujo/Familia,Ciudad,Lujo/Cultura
+Marrakech,Otoño,Pareja/Aventura/Cultura,Ciudad/Desierto,Cultura/Aventura
+Lima,Primavera,Solitario/Cultura/Gastronómico,Ciudad,Gastronomía/Cultura
+Cartagena,Invierno,Pareja/Familia/Cultura,Playa/Ciudad,Relax/Cultura
+Mykonos,Verano,Amigos/Fiesta/Playa,Playa,Fiesta/Playa
+Nueva York,Otoño,Solitario/Cultura/Compras,Ciudad,Cultura/Compras
+Montreal,Verano,Familia/Cultura/Invierno,Ciudad/Invierno,Invierno/Cultura
+Vancouver,Verano,Solitario/Naturaleza/Aventura,Naturaleza/Ciudad,Aventura/Naturaleza
+Praga,Primavera,Pareja/Cultura/Romántico,Ciudad,Cultura/Romántico
+Londres,Verano,Solitario/Cultura/Historia,Ciudad,Historia/Cultura
+Berlín,Verano,Solitario/Cultura/VidaNocturna,Ciudad,Cultura/Nocturna
+San Francisco,Otoño,Solitario/Innovación/Cultura,Ciudad,Tecnología/Cultura
+Ciudad de México,Invierno,Familia/Cultura/Gastronomía,Ciudad,Gastronomía/Cultura
+Zurich,Verano,Solitario/Naturaleza/Lujo,Ciudad/Naturaleza,Lujo/Naturaleza
+Moscú,Verano,Solitario/Historia/Cultura,Ciudad,Historia/Cultura
+Estocolmo,Verano,Solitario/Diseño/Naturaleza,Ciudad/Naturaleza,Diseño/Naturaleza
+Helsinki,Verano,Solitario/Naturaleza/Bienestar,Ciudad/Naturaleza,Bienestar/Naturaleza
+Oslo,Verano,Solitario/Naturaleza/Aventura,Naturaleza/Ciudad,Aventura/Naturaleza
+Copenhague,Primavera,Pareja/Cultura/Diseño,Ciudad,Diseño/Cultura
+Reykjavik,Verano,Aventura/Naturaleza/Solitario,Naturaleza,Aventura/Naturaleza
+Ginebra,Verano,Familia/Cultura/Naturaleza,Ciudad/Naturaleza,Cultura/Naturaleza
+Kitzbühel,Invierno,Familia/Ski/Aventura,Montaña/Nieve,Ski/Aventura
+Quebec,Invierno,Familia/Invierno/Historia,Ciudad/Invierno,Invierno/Historia
+Los Angeles,Primavera,Pareja/Amigos/Playa,Ciudad/Playa,Entretenimiento/Playa
+Chicago,Otoño,Solitario/Cultura/Arquitectura,Ciudad/Lago,Arquitectura/Cultura
+Houston,Invierno,Familia/Relax,Ciudad,Relax/Cultura
+Miami,Invierno,Familia/Fiesta/Playa,Playa,Relax/Fiesta
+Vienna,Primavera,Pareja/Cultura/Música,Ciudad,Música/Cultura
+Budapest,Verano,Pareja/Cultura/Relax,Ciudad,Termal/Historia
+Warsaw,Verano,Solitario/Cultura/Historia,Ciudad,Historia/Cultura
+Dublin,Verano,Amigos/Nocturno,Ciudad,Nocturna/Cultura
+Stockholm,Verano,Solitario/Diseño/Naturaleza,Ciudad/Naturaleza,Diseño/Naturaleza
+Helsinki,Verano,Solitario/Naturaleza/Bienestar,Ciudad/Naturaleza,Bienestar/Naturaleza
+Zurich,Verano,Solitario/Naturaleza/Lujo,Ciudad/Naturaleza,Lujo/Naturaleza
+Geneva,Verano,Familia/Cultura/Lujo,Ciudad/Lago,Lujo/Naturaleza
+Brussels,Verano,Solitario/Cultura/Gastronomía,Ciudad,Gastronomía/Cultura
+Moscow,Verano,Solitario/Historia/Cultura,Ciudad,Historia/Cultura
+Istanbul,Otoño,Solitario/Cultura/Histórico,Ciudad/Histórico,Cultura/Historia
+Dubai,Invierno,Pareja/Lujo/Familia,Ciudad,Lujo/Cultura
+Osaka,Primavera,Familia/Cultura/Gastronomía,Ciudad,Gastronomía/Cultura
+Seoul,Otoño,Solitario/Tecnología/Cultura,Ciudad/Tecnología,Tecnología/Cultura
+Beijing,Otoño,Cultural/Histórico,Ciudad,Historia/Cultura
+Shanghai,Otoño,Solitario/Negocios/Tecnología,Ciudad,Tecnología/Negocios
+Bangkok,Invierno,Cultura/Gastronomía/Nocturno,Ciudad,Gastronomía/Cultura
+Singapore,Invierno,Familia/Tecnología/Compras,Ciudad,Tecnología/Cultura
+Kuala Lumpur,Invierno,Familia/Cultura/Gastronomía,Ciudad,Cultura/Gastronomía
+Jakarta,Invierno,Cultural/Relajación,Ciudad,Relax/Cultura
+Manila,Invierno,Familia/Cultura/Gastronomía,Ciudad/Isla,Gastronomía/Cultura
+Ho Chi Minh City,Invierno,Cultura/Nocturno,Ciudad,Cultura/Nocturna
+Hanoi,Primavera,Cultura/Gastronomía,Ciudad,Gastronomía/Cultura
+New Delhi,Invierno,Histórico/Cultural,Ciudad,Historia/Cultura
+Mumbai,Invierno,Negocios/Cultural,Ciudad,Cultura/Negocios
+Bangalore,Invierno,Tecnología/Cultura,Ciudad,Tecnología/Cultura
+Chennai,Invierno,Cultural/Playa,Ciudad/Playa,Cultura/Relax
+Hyderabad,Invierno,Cultura/Tecnología,Ciudad,Cultura/Tecnología
+Cape Town,Verano,Naturaleza/Aventura,Playa/Montaña,Aventura/Naturaleza
+Johannesburg,Primavera,Safari/Cultura,Ciudad/Sabana,Aventura/Cultura
+Cairo,Otoño,Histórico/Cultura,Desierto/Ciudad,Historia/Cultura
+Casablanca,Primavera,Cultural/Relajación,Ciudad/Mar,Relax/Cultura
+Rio de Janeiro,Desconocido,Desconocido,Desconocido,Desconocido
+São Paulo,Primavera,Solitario/Cultura/Negocios,Ciudad,Cultura/Negocios
+Santiago,Primavera,Familia/Cultura/Naturaleza,Ciudad/Andes,Cultura/Aventura
+Bogotá,Primavera,Cultural/Gastronómico,Ciudad,Gastronomía/Cultura
+Medellín,Invierno,Relax/Cultura,Ciudad,Relax/Cultura
+Caracas,Invierno,Cultura/Historia,Ciudad,Cultura/Historia
+Quito,Primavera,Historia/Cultura,Ciudad/Montaña,Historia/Cultura
+Panama City,Invierno,Negocios/Relax,Ciudad/Playa,Negocios/Relax
+Mexico City,Invierno,Familia/Cultura/Gastronomía,Ciudad,Gastronomía/Cultura
+Guadalajara,Invierno,Cultura/Fiesta,Ciudad,Fiesta/Cultura
+Punta Cana,Invierno,Relax/Playa,Playa,Relax/Playa
+San Juan,Invierno,Relax/Historia,Playa/Histórico,Relax/Historia
+Toronto,Verano,Familia/Cultura/Naturaleza,Ciudad/Lago,Cultura/Naturaleza
+Calgary,Verano,Aventura/Naturaleza,Montaña,Aventura/Naturaleza
+Ottawa,Verano,Cultural/Política,Ciudad/Río,Historia/Cultura
+Sydney,Verano,Familia/Naturaleza/Cultura,Ciudad/Naturaleza,Naturaleza/Cultura
+Melbourne,Verano,Cultura/Deporte,Ciudad,Cultura/Deporte
+Brisbane,Verano,Familia/Aventura,Ciudad/Playa,Naturaleza/Relax
+Perth,Verano,Playas/Naturaleza,Ciudad/Playa,Relax/Naturaleza
+Auckland,Verano,Familia/Naturaleza,Ciudad/Mar,Naturaleza/Cultura
+Wellington,Verano,Cultura/Naturaleza,Ciudad/Mar,Cultura/Naturaleza
+Anchorage,Verano,Aventura/Naturaleza,Montaña/Glaciar,Aventura/Naturaleza
+Tallinn,Verano,Cultural/Histórico,Ciudad,Historia/Cultura
+Riga,Verano,Cultural/Arquitectura,Ciudad,Arquitectura/Cultura
+Vilnius,Verano,Cultura/Histórico,Ciudad,Historia/Cultura
+Luxembourg,Verano,Cultural/Familiar,Ciudad,Cultura/Relax
+Monaco,Verano,Lujo/Romántico,Ciudad/Mar,Lujo/Romántico
+San Marino,Verano,Cultural/Histórico,Ciudad/Monte,Historia/Cultura
+Andorra la Vella,Invierno,Ski/Aventura/Familia,Montaña/Nieve,Ski/Aventura
+Valletta,Primavera,Romántico/Histórico,Ciudad/Mar,Historia/Cultura
+Doha,Invierno,Lujo/Negocios,Desierto/Ciudad,Lujo/Cultura
+Kuwait City,Invierno,Negocios/Lujo,Desierto/Ciudad,Lujo/Negocios
+Manama,Invierno,Cultura/Negocios,Ciudad,Cultura/Negocios
+Amman,Primavera,Histórico/Cultura,Ciudad/Desierto,Historia/Cultura
+Jerusalén,Primavera,Histórico/Cultural,Ciudad,Historia/Cultura
+Teherán,Primavera,Cultural/Histórico,Ciudad,Historia/Cultura
+Bagdad,Invierno,Histórico/Cultural,Ciudad,Historia/Cultura
+Beirut,Primavera,Cultura/Relax,Ciudad/Mar,Relax/Cultura
+Túnez,Primavera,Cultura/Playa,Ciudad/Desierto,Historia/Relax
+Argel,Primavera,Histórico/Cultural,Ciudad/Desierto,Historia/Cultura
+Nairobi,Invierno,Safari/Aventura,Sabana,Aventura/Naturaleza
+Adís Abeba,Invierno,Cultura/Historia,Ciudad/Montaña,Historia/Cultura
+Accra,Invierno,Cultura/Relax,Ciudad/Playa,Relax/Cultura

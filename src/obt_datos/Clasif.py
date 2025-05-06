@@ -1,62 +1,158 @@
 import pandas as pd
+import os
 
-# Datos base por ciudad (sin estación aún)
-data_base = [
-    ["Tokyo, Japón", "Solitario / Cultura", "Ciudad / Cultura"],
-    ["París, Francia", "Pareja / Cultura", "Ciudad / Romántico"],
-    ["Barcelona, España", "Pareja / Amigos", "Ciudad / Playa / Cultura"],
-    ["Roma, Italia", "Pareja / Cultura", "Ciudad / Cultura / Romántico"],
-    ["Madrid, España", "Solitario / Pareja / Cultura", "Ciudad / Cultura"],
-    ["Amsterdam, Países Bajos", "Solitario / Pareja / Amigos", "Ciudad / Cultura"],
-    ["Lisboa, Portugal", "Pareja / Familia", "Ciudad / Cultura / Playa"],
-    ["Estambul, Turquía", "Solitario / Cultura", "Ciudad / Cultura / Histórico"],
-    ["Buenos Aires, Argentina", "Familia / Cultura", "Ciudad / Cultura"],
-    ["Seúl, Corea del Sur", "Solitario / Cultura", "Ciudad / Cultura"],
-    ["Cancún, México", "Pareja / Familia / Amigos", "Playa / Relax"],
-    ["Honolulu, Hawái, EE. UU.", "Pareja / Familia / Solitario", "Playa / Naturaleza"],
-    ["Río de Janeiro, Brasil", "Pareja / Amigos", "Playa / Ciudad / Fiesta"],
-    ["Sydney, Australia", "Familia / Solitario", "Playa / Ciudad / Naturaleza"],
-    ["Bali, Indonesia", "Pareja / Solitario", "Playa / Relax / Cultura"],
-    ["Dubai, Emiratos Árabes Unidos", "Pareja / Familia", "Ciudad / Lujo"],
-    ["Marrakech, Marruecos", "Pareja / Solitario", "Cultura / Histórico"],
-    ["Lima, Perú", "Solitario / Cultura", "Ciudad / Cultura / Histórico"],
-    ["Cartagena, Colombia", "Pareja / Amigos / Familia", "Playa / Cultura"],
-    ["Mykonos, Grecia", "Pareja / Amigos", "Playa / Fiesta / Relax"],
-    ["Nueva York, EE. UU.", "Solitario / Pareja / Cultura", "Ciudad / Cultura"],
-    ["Montreal, Canadá", "Familia / Solitario", "Ciudad / Naturaleza"],
-    ["Vancouver, Canadá", "Solitario / Naturaleza", "Naturaleza / Ciudad"],
-    ["Praga, República Checa", "Pareja / Cultura", "Ciudad / Cultura / Romántico"],
-    ["Londres, Reino Unido", "Solitario / Cultura", "Ciudad / Cultura"],
-    ["Berlín, Alemania", "Solitario / Cultura", "Ciudad / Cultura / Historia"],
-    ["San Francisco, EE. UU.", "Solitario / Innovación", "Ciudad / Cultura / Tecnología"],
-    ["Ciudad de México, México", "Cultura / Familia", "Ciudad / Cultura"],
-    ["Zurich, Suiza", "Solitario / Naturaleza", "Ciudad / Naturaleza"],
-    ["Moscú, Rusia", "Solitario / Cultura", "Ciudad / Cultura / Invierno"],
-    ["Estocolmo, Suecia", "Solitario / Naturaleza", "Ciudad / Invierno"],
-    ["Helsinki, Finlandia", "Solitario / Naturaleza", "Ciudad / Invierno"],
-    ["Oslo, Noruega", "Solitario / Naturaleza", "Ciudad / Invierno"],
-    ["Copenhague, Dinamarca", "Pareja / Cultura", "Ciudad / Cultura"],
-    ["Reykjavik, Islandia", "Solitario / Naturaleza", "Naturaleza / Aventura"],
-    ["Ginebra, Suiza", "Familia / Cultura", "Ciudad / Naturaleza"],
-    ["Ámsterdam, Países Bajos", "Solitario / Cultura", "Ciudad / Cultura"],
-    ["Kitzbühel, Austria", "Pareja / Familia", "Nieve / Ski"],
-    ["Quebec, Canadá", "Familia / Solitario", "Ciudad / Invierno"]
+import pandas as pd
+import os
+
+ciudades = [
+    "Tokyo","París","Barcelona","Roma","Madrid","Amsterdam","Lisboa","Estambul",
+    "Buenos Aires","Seúl","Cancún","Honolulu","Río de Janeiro","Sydney","Bali",
+    "Dubai","Marrakech","Lima","Cartagena","Mykonos","Nueva York","Montreal",
+    "Vancouver","Praga","Londres","Berlín","San Francisco","Ciudad de México",
+    "Zurich","Moscú","Estocolmo","Helsinki","Oslo","Copenhague","Reykjavik",
+    "Ginebra","Kitzbühel","Quebec","Los Angeles","Chicago","Houston","Miami",
+    "Vienna","Budapest","Warsaw","Dublin","Stockholm","Helsinki","Zurich",
+    "Geneva","Brussels","Moscow","Istanbul","Dubai","Osaka","Seoul","Beijing",
+    "Shanghai","Bangkok","Singapore","Kuala Lumpur","Jakarta","Manila",
+    "Ho Chi Minh City","Hanoi","New Delhi","Mumbai","Bangalore","Chennai",
+    "Hyderabad","Cape Town","Johannesburg","Cairo","Casablanca","Rio de Janeiro",
+    "São Paulo","Santiago","Bogotá","Medellín","Caracas","Quito","Panama City",
+    "Mexico City","Guadalajara","Punta Cana","San Juan","Toronto","Calgary",
+    "Ottawa","Sydney","Melbourne","Brisbane","Perth","Auckland","Wellington",
+    "Anchorage","Tallinn","Riga","Vilnius","Luxembourg","Monaco","San Marino",
+    "Andorra la Vella","Valletta","Doha","Kuwait City","Manama","Amman",
+    "Jerusalén","Teherán","Bagdad","Beirut","Túnez","Argel","Nairobi",
+    "Adís Abeba","Accra"
 ]
 
-# Estaciones del año
-temporadas = ["Primavera", "Verano", "Otoño", "Invierno"]
+datos_ciudades = {
+    "Tokyo":              {"Temporada":"Primavera","Perfil":"Solitario/Cultura/Innovación","Entorno":"Ciudad/Naturaleza","Clasificación":"Cultura/Tecnología"},
+    "París":              {"Temporada":"Primavera","Perfil":"Pareja/Romántico/Cultura","Entorno":"Ciudad","Clasificación":"Romántico/Cultura"},
+    "Barcelona":          {"Temporada":"Verano","Perfil":"Pareja/Amigos/Playa","Entorno":"Ciudad/Playa","Clasificación":"Playa/Fiesta/Cultura"},
+    "Roma":               {"Temporada":"Primavera","Perfil":"Pareja/Cultura/Histórico","Entorno":"Ciudad","Clasificación":"Cultura/Historia"},
+    "Madrid":             {"Temporada":"Otoño","Perfil":"Familia/Cultura/Gastronomía","Entorno":"Ciudad","Clasificación":"Cultura/Gastronomía"},
+    "Amsterdam":          {"Temporada":"Primavera","Perfil":"Solitario/Pareja/Cultura","Entorno":"Ciudad/Canales","Clasificación":"Cultura/Arte"},
+    "Lisboa":             {"Temporada":"Primavera","Perfil":"Pareja/Familia/Cultura","Entorno":"Ciudad/Playa","Clasificación":"Cultura/Relax"},
+    "Estambul":           {"Temporada":"Otoño","Perfil":"Solitario/Cultura/Histórico","Entorno":"Ciudad/Histórico","Clasificación":"Cultura/Historia"},
+    "Buenos Aires":       {"Temporada":"Primavera","Perfil":"Familia/Cultura/Nocturno","Entorno":"Ciudad","Clasificación":"Cultura/Arte"},
+    "Seúl":               {"Temporada":"Otoño","Perfil":"Solitario/Tecnología/Cultura","Entorno":"Ciudad/Tecnología","Clasificación":"Tecnología/Cultura"},
+    "Cancún":             {"Temporada":"Invierno","Perfil":"Pareja/Familia/Amigos","Entorno":"Playa","Clasificación":"Relax/Playa"},
+    "Honolulu":           {"Temporada":"Invierno","Perfil":"Familia/Solitario/Naturaleza","Entorno":"Playa/Naturaleza","Clasificación":"Relax/Naturaleza"},
+    "Río de Janeiro":     {"Temporada":"Verano","Perfil":"Pareja/Fiesta/Playa","Entorno":"Playa/Ciudad","Clasificación":"Fiesta/Playa"},
+    "Sydney":             {"Temporada":"Verano","Perfil":"Familia/Naturaleza/Cultura","Entorno":"Ciudad/Naturaleza","Clasificación":"Naturaleza/Cultura"},
+    "Bali":               {"Temporada":"Verano","Perfil":"Pareja/Solitario/Relax","Entorno":"Playa/Naturaleza","Clasificación":"Relax/Cultura"},
+    "Dubai":              {"Temporada":"Invierno","Perfil":"Pareja/Lujo/Familia","Entorno":"Ciudad","Clasificación":"Lujo/Cultura"},
+    "Marrakech":          {"Temporada":"Otoño","Perfil":"Pareja/Aventura/Cultura","Entorno":"Ciudad/Desierto","Clasificación":"Cultura/Aventura"},
+    "Lima":               {"Temporada":"Primavera","Perfil":"Solitario/Cultura/Gastronómico","Entorno":"Ciudad","Clasificación":"Gastronomía/Cultura"},
+    "Cartagena":          {"Temporada":"Invierno","Perfil":"Pareja/Familia/Cultura","Entorno":"Playa/Ciudad","Clasificación":"Relax/Cultura"},
+    "Mykonos":            {"Temporada":"Verano","Perfil":"Amigos/Fiesta/Playa","Entorno":"Playa","Clasificación":"Fiesta/Playa"},
+    "Nueva York":         {"Temporada":"Otoño","Perfil":"Solitario/Cultura/Compras","Entorno":"Ciudad","Clasificación":"Cultura/Compras"},
+    "Montreal":           {"Temporada":"Verano","Perfil":"Familia/Cultura/Invierno","Entorno":"Ciudad/Invierno","Clasificación":"Invierno/Cultura"},
+    "Vancouver":          {"Temporada":"Verano","Perfil":"Solitario/Naturaleza/Aventura","Entorno":"Naturaleza/Ciudad","Clasificación":"Aventura/Naturaleza"},
+    "Praga":              {"Temporada":"Primavera","Perfil":"Pareja/Cultura/Romántico","Entorno":"Ciudad","Clasificación":"Cultura/Romántico"},
+    "Londres":            {"Temporada":"Verano","Perfil":"Solitario/Cultura/Historia","Entorno":"Ciudad","Clasificación":"Historia/Cultura"},
+    "Berlín":             {"Temporada":"Verano","Perfil":"Solitario/Cultura/VidaNocturna","Entorno":"Ciudad","Clasificación":"Cultura/Nocturna"},
+    "San Francisco":      {"Temporada":"Otoño","Perfil":"Solitario/Innovación/Cultura","Entorno":"Ciudad","Clasificación":"Tecnología/Cultura"},
+    "Ciudad de México":   {"Temporada":"Invierno","Perfil":"Familia/Cultura/Gastronomía","Entorno":"Ciudad","Clasificación":"Gastronomía/Cultura"},
+    "Zurich":             {"Temporada":"Verano","Perfil":"Solitario/Naturaleza/Lujo","Entorno":"Ciudad/Naturaleza","Clasificación":"Lujo/Naturaleza"},
+    "Moscú":              {"Temporada":"Verano","Perfil":"Solitario/Historia/Cultura","Entorno":"Ciudad","Clasificación":"Historia/Cultura"},
+    "Estocolmo":          {"Temporada":"Verano","Perfil":"Solitario/Diseño/Naturaleza","Entorno":"Ciudad/Naturaleza","Clasificación":"Diseño/Naturaleza"},
+    "Helsinki":           {"Temporada":"Verano","Perfil":"Solitario/Naturaleza/Bienestar","Entorno":"Ciudad/Naturaleza","Clasificación":"Bienestar/Naturaleza"},
+    "Oslo":               {"Temporada":"Verano","Perfil":"Solitario/Naturaleza/Aventura","Entorno":"Naturaleza/Ciudad","Clasificación":"Aventura/Naturaleza"},
+    "Copenhague":         {"Temporada":"Primavera","Perfil":"Pareja/Cultura/Diseño","Entorno":"Ciudad","Clasificación":"Diseño/Cultura"},
+    "Reykjavik":          {"Temporada":"Verano","Perfil":"Aventura/Naturaleza/Solitario","Entorno":"Naturaleza","Clasificación":"Aventura/Naturaleza"},
+    "Ginebra":            {"Temporada":"Verano","Perfil":"Familia/Cultura/Naturaleza","Entorno":"Ciudad/Naturaleza","Clasificación":"Cultura/Naturaleza"},
+    "Kitzbühel":          {"Temporada":"Invierno","Perfil":"Familia/Ski/Aventura","Entorno":"Montaña/Nieve","Clasificación":"Ski/Aventura"},
+    "Quebec":             {"Temporada":"Invierno","Perfil":"Familia/Invierno/Historia","Entorno":"Ciudad/Invierno","Clasificación":"Invierno/Historia"},
+    "Los Angeles":        {"Temporada":"Primavera","Perfil":"Pareja/Amigos/Playa","Entorno":"Ciudad/Playa","Clasificación":"Entretenimiento/Playa"},
+    "Chicago":            {"Temporada":"Otoño","Perfil":"Solitario/Cultura/Arquitectura","Entorno":"Ciudad/Lago","Clasificación":"Arquitectura/Cultura"},
+    "Houston":            {"Temporada":"Invierno","Perfil":"Familia/Relax","Entorno":"Ciudad","Clasificación":"Relax/Cultura"},
+    "Miami":              {"Temporada":"Invierno","Perfil":"Familia/Fiesta/Playa","Entorno":"Playa","Clasificación":"Relax/Fiesta"},
+    "Vienna":             {"Temporada":"Primavera","Perfil":"Pareja/Cultura/Música","Entorno":"Ciudad","Clasificación":"Música/Cultura"},
+    "Budapest":           {"Temporada":"Verano","Perfil":"Pareja/Cultura/Relax","Entorno":"Ciudad","Clasificación":"Termal/Historia"},
+    "Warsaw":             {"Temporada":"Verano","Perfil":"Solitario/Cultura/Historia","Entorno":"Ciudad","Clasificación":"Historia/Cultura"},
+    "Dublin":             {"Temporada":"Verano","Perfil":"Amigos/Nocturno","Entorno":"Ciudad","Clasificación":"Nocturna/Cultura"},
+    "Stockholm":          {"Temporada":"Verano","Perfil":"Solitario/Diseño/Naturaleza","Entorno":"Ciudad/Naturaleza","Clasificación":"Diseño/Naturaleza"},
+    "Geneva":             {"Temporada":"Verano","Perfil":"Familia/Cultura/Lujo","Entorno":"Ciudad/Lago","Clasificación":"Lujo/Naturaleza"},
+    "Brussels":           {"Temporada":"Verano","Perfil":"Solitario/Cultura/Gastronomía","Entorno":"Ciudad","Clasificación":"Gastronomía/Cultura"},
+    "Moscow":             {"Temporada":"Verano","Perfil":"Solitario/Historia/Cultura","Entorno":"Ciudad","Clasificación":"Historia/Cultura"},
+    "Istanbul":           {"Temporada":"Otoño","Perfil":"Solitario/Cultura/Histórico","Entorno":"Ciudad/Histórico","Clasificación":"Cultura/Historia"},
+    "Osaka":              {"Temporada":"Primavera","Perfil":"Familia/Cultura/Gastronomía","Entorno":"Ciudad","Clasificación":"Gastronomía/Cultura"},
+    "Seoul":              {"Temporada":"Otoño","Perfil":"Solitario/Tecnología/Cultura","Entorno":"Ciudad/Tecnología","Clasificación":"Tecnología/Cultura"},
+    "Beijing":            {"Temporada":"Otoño","Perfil":"Cultural/Histórico","Entorno":"Ciudad","Clasificación":"Historia/Cultura"},
+    "Shanghai":           {"Temporada":"Otoño","Perfil":"Solitario/Negocios/Tecnología","Entorno":"Ciudad","Clasificación":"Tecnología/Negocios"},
+    "Bangkok":            {"Temporada":"Invierno","Perfil":"Cultura/Gastronomía/Nocturno","Entorno":"Ciudad","Clasificación":"Gastronomía/Cultura"},
+    "Singapore":          {"Temporada":"Invierno","Perfil":"Familia/Tecnología/Compras","Entorno":"Ciudad","Clasificación":"Tecnología/Cultura"},
+    "Kuala Lumpur":       {"Temporada":"Invierno","Perfil":"Familia/Cultura/Gastronomía","Entorno":"Ciudad","Clasificación":"Cultura/Gastronomía"},
+    "Jakarta":            {"Temporada":"Invierno","Perfil":"Cultural/Relajación","Entorno":"Ciudad","Clasificación":"Relax/Cultura"},
+    "Manila":             {"Temporada":"Invierno","Perfil":"Familia/Cultura/Gastronomía","Entorno":"Ciudad/Isla","Clasificación":"Gastronomía/Cultura"},
+    "Ho Chi Minh City":   {"Temporada":"Invierno","Perfil":"Cultura/Nocturno","Entorno":"Ciudad","Clasificación":"Cultura/Nocturna"},
+    "Hanoi":              {"Temporada":"Primavera","Perfil":"Cultura/Gastronomía","Entorno":"Ciudad","Clasificación":"Gastronomía/Cultura"},
+    "New Delhi":          {"Temporada":"Invierno","Perfil":"Histórico/Cultural","Entorno":"Ciudad","Clasificación":"Historia/Cultura"},
+    "Mumbai":             {"Temporada":"Invierno","Perfil":"Negocios/Cultural","Entorno":"Ciudad","Clasificación":"Cultura/Negocios"},
+    "Bangalore":          {"Temporada":"Invierno","Perfil":"Tecnología/Cultura","Entorno":"Ciudad","Clasificación":"Tecnología/Cultura"},
+    "Chennai":            {"Temporada":"Invierno","Perfil":"Cultural/Playa","Entorno":"Ciudad/Playa","Clasificación":"Cultura/Relax"},
+    "Hyderabad":          {"Temporada":"Invierno","Perfil":"Cultura/Tecnología","Entorno":"Ciudad","Clasificación":"Cultura/Tecnología"},
+    "Cape Town":          {"Temporada":"Verano","Perfil":"Naturaleza/Aventura","Entorno":"Playa/Montaña","Clasificación":"Aventura/Naturaleza"},
+    "Johannesburg":       {"Temporada":"Primavera","Perfil":"Safari/Cultura","Entorno":"Ciudad/Sabana","Clasificación":"Aventura/Cultura"},
+    "Cairo":              {"Temporada":"Otoño","Perfil":"Histórico/Cultura","Entorno":"Desierto/Ciudad","Clasificación":"Historia/Cultura"},
+    "Casablanca":         {"Temporada":"Primavera","Perfil":"Cultural/Relajación","Entorno":"Ciudad/Mar","Clasificación":"Relax/Cultura"},
+    "São Paulo":          {"Temporada":"Primavera","Perfil":"Solitario/Cultura/Negocios","Entorno":"Ciudad","Clasificación":"Cultura/Negocios"},
+    "Santiago":           {"Temporada":"Primavera","Perfil":"Familia/Cultura/Naturaleza","Entorno":"Ciudad/Andes","Clasificación":"Cultura/Aventura"},
+    "Bogotá":             {"Temporada":"Primavera","Perfil":"Cultural/Gastronómico","Entorno":"Ciudad","Clasificación":"Gastronomía/Cultura"},
+    "Medellín":           {"Temporada":"Invierno","Perfil":"Relax/Cultura","Entorno":"Ciudad","Clasificación":"Relax/Cultura"},
+    "Caracas":            {"Temporada":"Invierno","Perfil":"Cultura/Historia","Entorno":"Ciudad","Clasificación":"Cultura/Historia"},
+    "Quito":              {"Temporada":"Primavera","Perfil":"Historia/Cultura","Entorno":"Ciudad/Montaña","Clasificación":"Historia/Cultura"},
+    "Panama City":        {"Temporada":"Invierno","Perfil":"Negocios/Relax","Entorno":"Ciudad/Playa","Clasificación":"Negocios/Relax"},
+    "Mexico City":        {"Temporada":"Invierno","Perfil":"Familia/Cultura/Gastronomía","Entorno":"Ciudad","Clasificación":"Gastronomía/Cultura"},
+    "Guadalajara":        {"Temporada":"Invierno","Perfil":"Cultura/Fiesta","Entorno":"Ciudad","Clasificación":"Fiesta/Cultura"},
+    "Punta Cana":         {"Temporada":"Invierno","Perfil":"Relax/Playa","Entorno":"Playa","Clasificación":"Relax/Playa"},
+    "San Juan":           {"Temporada":"Invierno","Perfil":"Relax/Historia","Entorno":"Playa/Histórico","Clasificación":"Relax/Historia"},
+    "Toronto":            {"Temporada":"Verano","Perfil":"Familia/Cultura/Naturaleza","Entorno":"Ciudad/Lago","Clasificación":"Cultura/Naturaleza"},
+    "Calgary":            {"Temporada":"Verano","Perfil":"Aventura/Naturaleza","Entorno":"Montaña","Clasificación":"Aventura/Naturaleza"},
+    "Ottawa":             {"Temporada":"Verano","Perfil":"Cultural/Política","Entorno":"Ciudad/Río","Clasificación":"Historia/Cultura"},
+    "Melbourne":          {"Temporada":"Verano","Perfil":"Cultura/Deporte","Entorno":"Ciudad","Clasificación":"Cultura/Deporte"},
+    "Brisbane":           {"Temporada":"Verano","Perfil":"Familia/Aventura","Entorno":"Ciudad/Playa","Clasificación":"Naturaleza/Relax"},
+    "Perth":              {"Temporada":"Verano","Perfil":"Playas/Naturaleza","Entorno":"Ciudad/Playa","Clasificación":"Relax/Naturaleza"},
+    "Auckland":           {"Temporada":"Verano","Perfil":"Familia/Naturaleza","Entorno":"Ciudad/Mar","Clasificación":"Naturaleza/Cultura"},
+    "Wellington":         {"Temporada":"Verano","Perfil":"Cultura/Naturaleza","Entorno":"Ciudad/Mar","Clasificación":"Cultura/Naturaleza"},
+    "Anchorage":          {"Temporada":"Verano","Perfil":"Aventura/Naturaleza","Entorno":"Montaña/Glaciar","Clasificación":"Aventura/Naturaleza"},
+    "Tallinn":            {"Temporada":"Verano","Perfil":"Cultural/Histórico","Entorno":"Ciudad","Clasificación":"Historia/Cultura"},
+    "Riga":               {"Temporada":"Verano","Perfil":"Cultural/Arquitectura","Entorno":"Ciudad","Clasificación":"Arquitectura/Cultura"},
+    "Vilnius":            {"Temporada":"Verano","Perfil":"Cultura/Histórico","Entorno":"Ciudad","Clasificación":"Historia/Cultura"},
+    "Luxembourg":         {"Temporada":"Verano","Perfil":"Cultural/Familiar","Entorno":"Ciudad","Clasificación":"Cultura/Relax"},
+    "Monaco":             {"Temporada":"Verano","Perfil":"Lujo/Romántico","Entorno":"Ciudad/Mar","Clasificación":"Lujo/Romántico"},
+    "San Marino":         {"Temporada":"Verano","Perfil":"Cultural/Histórico","Entorno":"Ciudad/Monte","Clasificación":"Historia/Cultura"},
+    "Andorra la Vella":   {"Temporada":"Invierno","Perfil":"Ski/Aventura/Familia","Entorno":"Montaña/Nieve","Clasificación":"Ski/Aventura"},
+    "Valletta":           {"Temporada":"Primavera","Perfil":"Romántico/Histórico","Entorno":"Ciudad/Mar","Clasificación":"Historia/Cultura"},
+    "Doha":               {"Temporada":"Invierno","Perfil":"Lujo/Negocios","Entorno":"Desierto/Ciudad","Clasificación":"Lujo/Cultura"},
+    "Kuwait City":        {"Temporada":"Invierno","Perfil":"Negocios/Lujo","Entorno":"Desierto/Ciudad","Clasificación":"Lujo/Negocios"},
+    "Manama":             {"Temporada":"Invierno","Perfil":"Cultura/Negocios","Entorno":"Ciudad","Clasificación":"Cultura/Negocios"},
+    "Amman":              {"Temporada":"Primavera","Perfil":"Histórico/Cultura","Entorno":"Ciudad/Desierto","Clasificación":"Historia/Cultura"},
+    "Jerusalén":          {"Temporada":"Primavera","Perfil":"Histórico/Cultural","Entorno":"Ciudad","Clasificación":"Historia/Cultura"},
+    "Teherán":            {"Temporada":"Primavera","Perfil":"Cultural/Histórico","Entorno":"Ciudad","Clasificación":"Historia/Cultura"},
+    "Bagdad":             {"Temporada":"Invierno","Perfil":"Histórico/Cultural","Entorno":"Ciudad","Clasificación":"Historia/Cultura"},
+    "Beirut":             {"Temporada":"Primavera","Perfil":"Cultura/Relax","Entorno":"Ciudad/Mar","Clasificación":"Relax/Cultura"},
+    "Túnez":              {"Temporada":"Primavera","Perfil":"Cultura/Playa","Entorno":"Ciudad/Desierto","Clasificación":"Historia/Relax"},
+    "Argel":              {"Temporada":"Primavera","Perfil":"Histórico/Cultural","Entorno":"Ciudad/Desierto","Clasificación":"Historia/Cultura"},
+    "Nairobi":            {"Temporada":"Invierno","Perfil":"Safari/Aventura","Entorno":"Sabana","Clasificación":"Aventura/Naturaleza"},
+    "Adís Abeba":         {"Temporada":"Invierno","Perfil":"Cultura/Historia","Entorno":"Ciudad/Montaña","Clasificación":"Historia/Cultura"},
+    "Accra":              {"Temporada":"Invierno","Perfil":"Cultura/Relax","Entorno":"Ciudad/Playa","Clasificación":"Relax/Cultura"}
+}
 
-# Crear combinaciones de cada ciudad con todas las estaciones
-data_completa = []
+registros = []
+for ciudad in ciudades:
+    d = datos_ciudades.get(ciudad, {"Temporada":"Desconocido","Perfil":"Desconocido","Entorno":"Desconocido","Clasificación":"Desconocido"})
+    registros.append({
+        "Ciudad":                 ciudad,
+        "Mejor_Temporada":        d["Temporada"],
+        "Perfil_viajero":         d["Perfil"],
+        "Entornos":               d["Entorno"],
+        "Clasificacion_destino":  d["Clasificación"]
+    })
 
-for ciudad, perfil, clasificacion in data_base:
-    for temporada in temporadas:
-        data_completa.append([ciudad, temporada, perfil, clasificacion])
-
-# Crear DataFrame
-df = pd.DataFrame(data_completa, columns=["Ciudad", "Temporada", "Perfil_viajero", "Clasificacion_destino"])
-
-# Guardar como CSV
-df.to_csv("../Modelo_recomendaci-n_Agencia_de_viajes/data/processed/perfiles_completos_destinos_temporada.csv", index=False)
-
-print("✅ CSV 'perfiles_completos_destinos_temporada.csv' creado con TODAS las ciudades y estaciones.")
+df = pd.DataFrame(registros)
+out_dir = os.path.join(os.getcwd(), "data", "processed")
+os.makedirs(out_dir, exist_ok=True)
+df.to_csv(os.path.join(out_dir, "perfiles_completos_destinos_temporada.csv"), index=False)
+print(f"✅ CSV con {len(df)} filas generado en {out_dir}")
