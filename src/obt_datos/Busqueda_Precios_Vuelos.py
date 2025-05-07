@@ -42,7 +42,7 @@ while True:
         print("❌ Por favor, introduce números válidos para adultos y seniors.")
 
 # --- CARGAR DESTINOS ---
-csv_path = r"C:\Users\mafer\OneDrive\Escritorio\Predicccion_agencia_de_viajes_proyecto\data\processed\Codigos_aeropuestos.csv"
+csv_path = "..\data\processed\Codigos_aeropuestos.csv"
 df_destinos = pd.read_csv(csv_path)
 df_destinos['Ciudad'] = df_destinos['Ciudad'].str.strip().str.title()
 
@@ -138,9 +138,12 @@ if resultados_vuelos:
     print(df_resultados)
 
     df_resultados.to_csv(
-        r"C:\Users\mafer\OneDrive\Escritorio\Predicccion_agencia_de_viajes_proyecto\data\processed\precios_vuelos.csv",
+        "..\data\processed\precios_vuelos.csv",
         index=False
     )
     print("✅ Resultados guardados correctamente.")
 else:
     print("⚠️ No se encontraron resultados. No se guardó ningún archivo.")
+
+
+########
