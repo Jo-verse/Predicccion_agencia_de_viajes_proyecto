@@ -4,7 +4,7 @@ import json
 from tqdm import tqdm
 
 # --- CONFIGURACIÓN ---
-RAPIDAPI_KEY = "e1beb37a81mshafcf57072ce609dp13cd52jsn849a9e1726af"
+RAPIDAPI_KEY = "9657827be4mshc6f461c74460ae9p1c1d9ejsn1f282702e67f"
 API_HOST = "tripadvisor16.p.rapidapi.com"
 FLIGHTS_ENDPOINT = "https://tripadvisor16.p.rapidapi.com/api/v1/flights/searchFlights"
 
@@ -42,7 +42,7 @@ while True:
         print("❌ Por favor, introduce números válidos para adultos y seniors.")
 
 # --- CARGAR DESTINOS ---
-csv_path = "..\data\processed\Codigos_aeropuestos.csv"
+csv_path = r"C:\Users\mafer\OneDrive\Escritorio\Predicccion_agencia_de_viajes_proyecto\data\processed\Codigos_aeropuestos.csv"
 df_destinos = pd.read_csv(csv_path)
 df_destinos['Ciudad'] = df_destinos['Ciudad'].str.strip().str.title()
 
@@ -138,7 +138,7 @@ if resultados_vuelos:
     print(df_resultados)
 
     df_resultados.to_csv(
-        "..\data\processed\precios_vuelos.csv",
+        r"C:\Users\mafer\OneDrive\Escritorio\Predicccion_agencia_de_viajes_proyecto\data\processed\precios_vuelos.csv",
         index=False
     )
     print("✅ Resultados guardados correctamente.")
