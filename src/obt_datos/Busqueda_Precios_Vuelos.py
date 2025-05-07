@@ -5,8 +5,8 @@ from tqdm import tqdm
 
 # --- CONFIGURACIÓN ---
 RAPIDAPI_KEY = "e1beb37a81mshafcf57072ce609dp13cd52jsn849a9e1726af"
-API_HOST = "google-flights2.p.rapidapi.com"
-FLIGHTS_ENDPOINT = "https://priceline-com2.p.rapidapi.com/flights/details"  # Verificar si sigue vigente
+API_HOST = "tripadvisor16.p.rapidapi.com"
+FLIGHTS_ENDPOINT = "https://tripadvisor16.p.rapidapi.com/api/v1/flights/searchFlights"
 
 headers = {
     "X-RapidAPI-Key": RAPIDAPI_KEY,
@@ -17,8 +17,29 @@ headers = {
 origen_ciudad = input("Introduce la ciudad de origen: ").title().strip()
 fecha_salida = input("Introduce la fecha de salida (YYYY-MM-DD): ")
 fecha_regreso = input("Introduce la fecha de regreso (YYYY-MM-DD, deja en blanco para vuelos de ida): ")
+
+# Validar clase
+opciones_clase = ["ECONOMY", "PREMIUM_ECONOMY", "BUSSINES", "FIRST"]
 class_of_service = input("Introduce la clase (ECONOMY, PREMIUM_ECONOMY, BUSSINES, FIRST): ").upper().strip()
-# orden_de_clasificacion = input("Introduce el criterio de orden (ML_BEST_VALUE, DURATION, PRICE): ").upper().strip()
+while class_of_service not in opciones_clase:
+    print("❌ Clase no válida. Opciones: ", ", ".join(opciones_clase))
+    class_of_service = input("Introduce la clase (ECONOMY, PREMIUM_ECONOMY, BUSSINES, FIRST): ").upper().strip()
+
+# Validar orden
+opciones_orden = ["ML_BEST_VALUE", "DURATION", "PRICE"]
+orden_de_clasificacion = input("Introduce el criterio de orden (ML_BEST_VALUE, DURATION, PRICE): ").upper().strip()
+while orden_de_clasificacion not in opciones_orden:
+    print("❌ Orden no válido. Opciones: ", ", ".join(opciones_orden))
+    orden_de_clasificacion = input("Introduce el criterio de orden (ML_BEST_VALUE, DURATION, PRICE): ").upper().strip()
+
+# Validar adultos y seniors
+while True:
+    try:
+        numero_de_adultos = int(input("Introduce el número de adultos: "))
+        numero_de_adultos_mayores = int(input("Introduce el número de adultos mayores de 65 años: "))
+        break
+    except ValueError:
+        print("❌ Por favor, introduce números válidos para adultos y seniors.")
 
 # --- CARGAR DESTINOS ---
 csv_path = r"C:\Users\mafer\OneDrive\Escritorio\Predicccion_agencia_de_viajes_proyecto\data\processed\Codigos_aeropuestos.csv"
@@ -35,9 +56,8 @@ else:
     exit()
 
 # --- FUNCIÓN PARA OBTENER PRECIO DE VUELO ---
-def obtener_precio_vuelo(origen, destino_iata, fecha_salida, fecha_regreso=None, clase="ECONOMY", orden="PRICE"):
+def obtener_precio_vuelo(origen, destino_iata, fecha_salida, fecha_regreso=None, clase="ECONOMY", orden="PRICE", adultos=1, seniors=0):
     legs = [{"sourceAirportCode": origen, "destinationAirportCode": destino_iata, "date": fecha_salida}]
-    
     if fecha_regreso:
         legs.append({
             "sourceAirportCode": destino_iata,
@@ -48,21 +68,16 @@ def obtener_precio_vuelo(origen, destino_iata, fecha_salida, fecha_regreso=None,
     payload = {
         "legs": legs,
         "classOfService": clase,
-        "sortOrder": orden
+        "sortOrder": orden,
+        "numAdults": adultos,
+        "numSeniors": seniors
     }
 
     try:
         response = requests.post(FLIGHTS_ENDPOINT, headers=headers, json=payload)
         response.raise_for_status()
+        data = response.json()
 
-        try:
-            data = response.json()
-        except json.JSONDecodeError:
-            print(f"❌ Error al decodificar JSON para {origen} → {destino_iata}.")
-            print("Contenido recibido:", response.text)
-            return None
-
-        # ⚠️ Ajustar esta parte según la estructura real de la respuesta:
         itinerarios = data.get("data", {}).get("flights", [])
         precios = []
 
@@ -72,7 +87,7 @@ def obtener_precio_vuelo(origen, destino_iata, fecha_salida, fecha_regreso=None,
                 if precio:
                     precio_numerico = float(precio.replace("€", "").replace(",", "").strip())
                     precios.append(precio_numerico)
-            except Exception as e:
+            except Exception:
                 continue
 
         return min(precios) if precios else None
@@ -80,8 +95,10 @@ def obtener_precio_vuelo(origen, destino_iata, fecha_salida, fecha_regreso=None,
     except requests.exceptions.RequestException as err:
         print(f"❌ Error de solicitud para {origen} → {destino_iata}: {err}")
         return None
+    except json.JSONDecodeError:
+        print(f"❌ Error al decodificar JSON para {origen} → {destino_iata}.")
+        return None
 
-# --- ITERAR DESTINOS ---
 # --- ITERAR DESTINOS ---
 resultados_vuelos = []
 for _, row in tqdm(df_destinos.iterrows(), total=len(df_destinos)):
@@ -89,13 +106,15 @@ for _, row in tqdm(df_destinos.iterrows(), total=len(df_destinos)):
     destino_iata = row['COD_IATA']
 
     if pd.notna(destino_iata) and destino_iata != origen_iata:
-        # 🔽 AQUÍ SE USA LA VERSIÓN NUEVA DE LA FUNCIÓN
         precio = obtener_precio_vuelo(
             origen_iata,
             destino_iata,
             fecha_salida,
             fecha_regreso,
             class_of_service,
+            orden_de_clasificacion,
+            numero_de_adultos,
+            numero_de_adultos_mayores
         )
 
         if precio is not None:
@@ -111,7 +130,6 @@ for _, row in tqdm(df_destinos.iterrows(), total=len(df_destinos)):
             print(f"No se encontraron precios para {ciudad_destino} ({destino_iata}) desde {origen_ciudad}.")
     else:
         print(f"⚠️ Código IATA no válido o igual al origen para {ciudad_destino}.")
-
 
 # --- GUARDAR RESULTADOS ---
 if resultados_vuelos:
