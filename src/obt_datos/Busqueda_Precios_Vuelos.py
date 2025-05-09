@@ -4,7 +4,7 @@ import json
 from tqdm import tqdm
 
 # --- CONFIGURACIÓN ---
-RAPIDAPI_KEY = "9657827be4mshc6f461c74460ae9p1c1d9ejsn1f282702e67f"
+RAPIDAPI_KEY = "e1beb37a81mshafcf57072ce609dp13cd52jsn849a9e1726af"
 API_HOST = "tripadvisor16.p.rapidapi.com"
 FLIGHTS_ENDPOINT = "https://tripadvisor16.p.rapidapi.com/api/v1/flights/searchFlights"
 
