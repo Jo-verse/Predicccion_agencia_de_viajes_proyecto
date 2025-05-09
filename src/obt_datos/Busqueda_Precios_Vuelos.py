@@ -22,14 +22,14 @@ fecha_regreso = input("Introduce la fecha de regreso (YYYY-MM-DD, deja en blanco
 opciones_clase = ["ECONOMY", "PREMIUM_ECONOMY", "BUSSINES", "FIRST"]
 class_of_service = input("Introduce la clase (ECONOMY, PREMIUM_ECONOMY, BUSSINES, FIRST): ").upper().strip()
 while class_of_service not in opciones_clase:
-    print("❌ Clase no válida. Opciones: ", ", ".join(opciones_clase))
+    print("Clase no válida. Opciones: ", ", ".join(opciones_clase))
     class_of_service = input("Introduce la clase (ECONOMY, PREMIUM_ECONOMY, BUSSINES, FIRST): ").upper().strip()
 
 # Validar orden
 opciones_orden = ["ML_BEST_VALUE", "DURATION", "PRICE"]
 orden_de_clasificacion = input("Introduce el criterio de orden (ML_BEST_VALUE, DURATION, PRICE): ").upper().strip()
 while orden_de_clasificacion not in opciones_orden:
-    print("❌ Orden no válido. Opciones: ", ", ".join(opciones_orden))
+    print("Orden no válido. Opciones: ", ", ".join(opciones_orden))
     orden_de_clasificacion = input("Introduce el criterio de orden (ML_BEST_VALUE, DURATION, PRICE): ").upper().strip()
 
 # Validar adultos y seniors
@@ -39,7 +39,7 @@ while True:
         numero_de_adultos_mayores = int(input("Introduce el número de adultos mayores de 65 años: "))
         break
     except ValueError:
-        print("❌ Por favor, introduce números válidos para adultos y seniors.")
+        print("Por favor, introduce números válidos para adultos y seniors.")
 
 # --- CARGAR DESTINOS ---
 csv_path = r"C:\Users\mafer\OneDrive\Escritorio\Predicccion_agencia_de_viajes_proyecto\data\processed\Codigos_aeropuestos.csv"
@@ -93,10 +93,10 @@ def obtener_precio_vuelo(origen, destino_iata, fecha_salida, fecha_regreso=None,
         return min(precios) if precios else None
 
     except requests.exceptions.RequestException as err:
-        print(f"❌ Error de solicitud para {origen} → {destino_iata}: {err}")
+        print(f"Error de solicitud para {origen} → {destino_iata}: {err}")
         return None
     except json.JSONDecodeError:
-        print(f"❌ Error al decodificar JSON para {origen} → {destino_iata}.")
+        print(f"Error al decodificar JSON para {origen} → {destino_iata}.")
         return None
 
 # --- ITERAR DESTINOS ---
