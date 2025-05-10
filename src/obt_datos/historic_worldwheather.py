@@ -5,7 +5,7 @@ from datetime import datetime
 from geopy.geocoders import Nominatim
 
 # Cargar ciudades
-df_ciudades = pd.read_csv("../Modelo_recomendaci-n_Agencia_de_viajes/data/processed/ciudades_con_clima.csv")
+df_ciudades = pd.read_csv("../data/processed/ciudades_con_clima.csv")
 
 # Inicializar geolocalizador de Nominatim
 geolocator = Nominatim(user_agent="clima_agencia_viajes")
@@ -74,6 +74,6 @@ for idx, row in df_ciudades.iterrows():
 df_clima = pd.DataFrame(datos_clima)
 
 # Guardar el archivo CSV con los datos adicionales
-df_clima.to_csv("../Modelo_recomendaci-n_Agencia_de_viajes/data/processed/Datos_climaticos_completos_hist.csv", index=False)
+df_clima.to_csv("../data/processed/Datos_climaticos_completos_hist.csv", index=False)
 
 print("¡Proceso completado!")

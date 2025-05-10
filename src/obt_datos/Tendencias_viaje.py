@@ -18,7 +18,7 @@ reddit = praw.Reddit(
 )
 
 # Leer dataset
-df_ciudades = pd.read_csv("../Predicccion_agencia_de_viajes_proyecto/data/processed/ciudades_con_clima.csv")
+df_ciudades = pd.read_csv("../data/processed/ciudades_con_clima.csv")
 popularidad_reddit = []
 
 # Buscar menciones por ciudad
@@ -38,6 +38,6 @@ for idx, row in df_ciudades.iterrows():
 
 # Añadir columna y guardar
 df_ciudades["popularidad_reddit"] = popularidad_reddit
-df_ciudades.to_csv("../Predicccion_agencia_de_viajes_proyecto/data/processed/ciudades_con_reddit.csv", index=False)
+df_ciudades.to_csv("../data/processed/ciudades_con_reddit.csv", index=False)
 
 print("¡Popularidad Reddit añadida!")

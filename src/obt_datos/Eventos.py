@@ -6,7 +6,7 @@ import os
 from datetime import datetime, timedelta
 
 # Leer dataset de ciudades
-df_ciudades = pd.read_csv("../Predicccion_agencia_de_viajes_proyecto/data/processed/ciudades_con_clima.csv")
+df_ciudades = pd.read_csv("../data/processed/ciudades_con_clima.csv")
 
 # Cargar API KEY de entorno
 load_dotenv()
@@ -73,6 +73,6 @@ for _, row in df_ciudades.iterrows():
 
 # Crear DataFrame y guardar
 df_eventos = pd.DataFrame(eventos_lista)
-df_eventos.to_csv("../Predicccion_agencia_de_viajes_proyecto/data/processed/ciudades_con_eventos.csv", index=False)
+df_eventos.to_csv("../data/processed/ciudades_con_eventos.csv", index=False)
 
 print("¡Eventos guardados por fila correctamente!")
