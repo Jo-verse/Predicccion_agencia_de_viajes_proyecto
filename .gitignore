@@ -3,6 +3,12 @@ __pycache__
 ciudades_con_clima.csv
 ciudades_con_eventos.csv
 ciudades_con_reddit.csv
-Codigos_aeropuestos.csv
+ciudades_con_tendencias.csv
+Codigos_aeropuertos.csv
 Datos_climaticos_completos_hist.csv
+hoteles_filtrados.csv
 perfiles_completos_destinos_temporada.csv
+dataset_completo.csv
+hotels_with_distance_dataset.csv
+merged_flight_dataset.csv
+
