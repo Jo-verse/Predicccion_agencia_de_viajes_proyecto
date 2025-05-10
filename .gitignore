@@ -1,5 +1,6 @@
 __pycache__
 .learn
+.env
 ciudades_con_clima.csv
 ciudades_con_eventos.csv
 ciudades_con_reddit.csv
