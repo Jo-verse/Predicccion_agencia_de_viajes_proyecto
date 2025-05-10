@@ -1,0 +1,107 @@
+Ciudad,COD_IATA,Precio_Promedio_Hotel
+Tokyo,HND,130.0
+París,CDG,98.98
+Barcelona,BCN,280.96
+Roma,FCO,360.36
+Madrid,MAD,132.34
+Amsterdam,AMS,351.54
+Lisboa,LIS,415.53
+Estambul,IST,97.97
+Buenos Aires,EZE,102.44
+Seúl,ICN,94.53
+Cancún,CUN,108.24
+Honolulu,HNL,59.81
+Río de Janeiro,GIG,187.84
+Sydney,SYD,159.63
+Bali,DPS,440.27
+Dubai,DXB,321.56
+Marrakech,RAK,479.05
+Lima,LIM,379.44
+Cartagena,CTG,247.11
+Mykonos,JMK,274.85
+Nueva York,NYC,317.25
+Montreal,YUL,226.99
+Vancouver,YVR,140.76
+Praga,PRG,200.33
+Londres,LHR,260.9
+Berlín,BER,215.25
+San Francisco,SFO,134.21
+Ciudad de México,MEX,331.92
+Zurich,ZRH,87.19
+Moscú,SVO,211.74
+Estocolmo,ARN,205.13
+Helsinki,HEL,83.65
+Oslo,OSL,344.56
+Copenhague,CPH,492.71
+Reykjavik,KEF,282.23
+Ginebra,GVA,135.97
+Kitzbühel,INN,378.38
+Quebec,YQB,143.44
+Los Angeles,LAX,238.26
+Chicago,ORD,125.12
+Houston,IAH,336.97
+Miami,MIA,491.81
+Vienna,VIE,347.73
+Budapest,BUD,310.77
+Warsaw,WAW,173.24
+Dublin,DUB,182.58
+Brussels,BRU,189.43
+Osaka,KIX,183.81
+Beijing,PEK,270.01
+Shanghai,PVG,434.52
+Bangkok,BKK,470.41
+Singapore,SIN,198.04
+Kuala Lumpur,KUL,277.7
+Jakarta,CGK,253.96
+Manila,MNL,327.38
+Ho Chi Minh City,SGN,403.34
+Hanoi,HAN,301.53
+New Delhi,DEL,230.25
+Mumbai,BOM,455.68
+Bangalore,BLR,299.85
+Chennai,MAA,78.38
+Hyderabad,HYD,381.2
+Cape Town,CPT,303.14
+Johannesburg,JNB,340.56
+Cairo,CAI,253.87
+Casablanca,CMN,120.68
+São Paulo,GRU,441.52
+Santiago,SCL,207.07
+Bogotá,BOG,402.92
+Medellín,MDE,263.61
+Caracas,CCS,166.83
+Quito,UIO,474.04
+Panama City,PTY,167.48
+Guadalajara,GDL,300.23
+Punta Cana,PUJ,209.54
+San Juan,SJU,339.84
+Toronto,YYZ,150.38
+Calgary,YYC,292.38
+Ottawa,YOW,203.71
+Melbourne,MEL,52.01
+Brisbane,BNE,292.19
+Perth,PER,53.72
+Auckland,AKL,90.28
+Wellington,WLG,200.86
+Anchorage,ANC,479.83
+Tallinn,TLL,398.3
+Riga,RIX,244.91
+Vilnius,VNO,196.86
+Luxembourg,LUX,252.45
+Monaco,NCE,122.47
+San Marino,RMI,368.2
+Andorra la Vella,LEU,242.0
+Valletta,MLA,420.24
+Doha,DOH,405.55
+Kuwait City,KWI,364.82
+Manama,BAH,392.48
+Amman,AMM,424.56
+Jerusalén,TLV,493.59
+Teherán,THR,161.29
+Bagdad,BGW,252.6
+Beirut,BEY,99.87
+Túnez,TUN,366.38
+Argel,ALG,493.23
+Nairobi,NBO,443.32
+Adís Abeba,ADD,317.46
+Accra,ACC,206.85

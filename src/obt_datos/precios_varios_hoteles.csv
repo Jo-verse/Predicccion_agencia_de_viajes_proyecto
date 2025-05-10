@@ -1,0 +1,531 @@
+Ciudad,COD_IATA,Nombre_Hotel,Precio_Promedio,Calificación
+Tokyo,HND,Hotel Tokyo 1,317.17,3.9
+Tokyo,HND,Hotel Tokyo 2,436.49,3.6
+Tokyo,HND,Hotel Tokyo 3,80.12,4.1
+Tokyo,HND,Hotel Tokyo 4,94.74,4.8
+Tokyo,HND,Hotel Tokyo 5,409.22,4.8
+París,CDG,Hotel París 1,425.59,3.4
+París,CDG,Hotel París 2,483.74,4.8
+París,CDG,Hotel París 3,346.9,3.7
+París,CDG,Hotel París 4,140.92,3.8
+París,CDG,Hotel París 5,365.85,4.5
+Barcelona,BCN,Hotel Barcelona 1,262.9,4.2
+Barcelona,BCN,Hotel Barcelona 2,194.78,3.3
+Barcelona,BCN,Hotel Barcelona 3,277.59,4.0
+Barcelona,BCN,Hotel Barcelona 4,90.16,3.2
+Barcelona,BCN,Hotel Barcelona 5,123.65,4.3
+Roma,FCO,Hotel Roma 1,110.85,4.2
+Roma,FCO,Hotel Roma 2,248.36,3.9
+Roma,FCO,Hotel Roma 3,256.75,4.9
+Roma,FCO,Hotel Roma 4,141.81,4.7
+Roma,FCO,Hotel Roma 5,132.61,4.9
+Madrid,MAD,Hotel Madrid 1,67.93,4.3
+Madrid,MAD,Hotel Madrid 2,87.23,4.3
+Madrid,MAD,Hotel Madrid 3,301.71,3.3
+Madrid,MAD,Hotel Madrid 4,59.32,4.9
+Madrid,MAD,Hotel Madrid 5,376.12,3.5
+Amsterdam,AMS,Hotel Amsterdam 1,397.09,3.6
+Amsterdam,AMS,Hotel Amsterdam 2,417.85,4.8
+Amsterdam,AMS,Hotel Amsterdam 3,340.46,4.3
+Amsterdam,AMS,Hotel Amsterdam 4,430.87,4.2
+Amsterdam,AMS,Hotel Amsterdam 5,478.64,4.9
+Lisboa,LIS,Hotel Lisboa 1,274.76,4.9
+Lisboa,LIS,Hotel Lisboa 2,59.36,3.9
+Lisboa,LIS,Hotel Lisboa 3,365.85,3.5
+Lisboa,LIS,Hotel Lisboa 4,482.3,4.5
+Lisboa,LIS,Hotel Lisboa 5,229.65,3.3
+Estambul,IST,Hotel Estambul 1,484.86,3.4
+Estambul,IST,Hotel Estambul 2,181.42,4.3
+Estambul,IST,Hotel Estambul 3,122.37,4.4
+Estambul,IST,Hotel Estambul 4,120.79,4.1
+Estambul,IST,Hotel Estambul 5,262.65,3.8
+Buenos Aires,EZE,Hotel Buenos Aires 1,69.17,3.1
+Buenos Aires,EZE,Hotel Buenos Aires 2,390.01,4.5
+Buenos Aires,EZE,Hotel Buenos Aires 3,479.96,4.7
+Buenos Aires,EZE,Hotel Buenos Aires 4,141.8,4.7
+Buenos Aires,EZE,Hotel Buenos Aires 5,405.69,4.0
+Seúl,ICN,Hotel Seúl 1,238.32,4.1
+Seúl,ICN,Hotel Seúl 2,88.3,4.6
+Seúl,ICN,Hotel Seúl 3,89.87,4.3
+Seúl,ICN,Hotel Seúl 4,135.29,4.8
+Seúl,ICN,Hotel Seúl 5,314.45,3.7
+Cancún,CUN,Hotel Cancún 1,496.26,3.5
+Cancún,CUN,Hotel Cancún 2,146.71,3.2
+Cancún,CUN,Hotel Cancún 3,237.21,4.7
+Cancún,CUN,Hotel Cancún 4,66.11,3.1
+Cancún,CUN,Hotel Cancún 5,159.74,4.4
+Honolulu,HNL,Hotel Honolulu 1,376.94,3.3
+Honolulu,HNL,Hotel Honolulu 2,339.82,3.1
+Honolulu,HNL,Hotel Honolulu 3,134.83,4.0
+Honolulu,HNL,Hotel Honolulu 4,463.83,5.0
+Honolulu,HNL,Hotel Honolulu 5,122.87,4.6
+Río de Janeiro,GIG,Hotel Río de Janeiro 1,307.18,4.5
+Río de Janeiro,GIG,Hotel Río de Janeiro 2,483.08,4.4
+Río de Janeiro,GIG,Hotel Río de Janeiro 3,201.18,3.7
+Río de Janeiro,GIG,Hotel Río de Janeiro 4,321.1,4.8
+Río de Janeiro,GIG,Hotel Río de Janeiro 5,198.42,3.0
+Sydney,SYD,Hotel Sydney 1,492.21,5.0
+Sydney,SYD,Hotel Sydney 2,206.53,3.4
+Sydney,SYD,Hotel Sydney 3,318.67,4.2
+Sydney,SYD,Hotel Sydney 4,423.26,4.1
+Sydney,SYD,Hotel Sydney 5,321.89,3.3
+Bali,DPS,Hotel Bali 1,416.17,3.6
+Bali,DPS,Hotel Bali 2,75.87,4.9
+Bali,DPS,Hotel Bali 3,162.49,4.3
+Bali,DPS,Hotel Bali 4,340.86,3.3
+Bali,DPS,Hotel Bali 5,227.36,4.4
+Dubai,DXB,Hotel Dubai 1,412.02,4.7
+Dubai,DXB,Hotel Dubai 2,160.47,4.1
+Dubai,DXB,Hotel Dubai 3,81.22,3.9
+Dubai,DXB,Hotel Dubai 4,155.72,4.2
+Dubai,DXB,Hotel Dubai 5,212.73,3.0
+Marrakech,RAK,Hotel Marrakech 1,402.57,4.6
+Marrakech,RAK,Hotel Marrakech 2,163.46,3.3
+Marrakech,RAK,Hotel Marrakech 3,405.58,3.9
+Marrakech,RAK,Hotel Marrakech 4,464.84,3.2
+Marrakech,RAK,Hotel Marrakech 5,435.84,4.0
+Lima,LIM,Hotel Lima 1,313.45,4.8
+Lima,LIM,Hotel Lima 2,265.28,3.2
+Lima,LIM,Hotel Lima 3,177.11,4.3
+Lima,LIM,Hotel Lima 4,230.7,3.8
+Lima,LIM,Hotel Lima 5,411.61,3.3
+Cartagena,CTG,Hotel Cartagena 1,441.64,4.8
+Cartagena,CTG,Hotel Cartagena 2,336.43,4.9
+Cartagena,CTG,Hotel Cartagena 3,186.62,3.5
+Cartagena,CTG,Hotel Cartagena 4,357.32,4.9
+Cartagena,CTG,Hotel Cartagena 5,221.49,4.5
+Mykonos,JMK,Hotel Mykonos 1,453.02,3.2
+Mykonos,JMK,Hotel Mykonos 2,86.56,4.6
+Mykonos,JMK,Hotel Mykonos 3,410.53,5.0
+Mykonos,JMK,Hotel Mykonos 4,320.72,4.0
+Mykonos,JMK,Hotel Mykonos 5,392.25,4.7
+Nueva York,NYC,Hotel Nueva York 1,103.55,4.0
+Nueva York,NYC,Hotel Nueva York 2,330.52,4.3
+Nueva York,NYC,Hotel Nueva York 3,129.92,4.1
+Nueva York,NYC,Hotel Nueva York 4,247.8,4.8
+Nueva York,NYC,Hotel Nueva York 5,325.46,3.8
+Montreal,YUL,Hotel Montreal 1,376.99,4.2
+Montreal,YUL,Hotel Montreal 2,450.42,5.0
+Montreal,YUL,Hotel Montreal 3,69.24,3.2
+Montreal,YUL,Hotel Montreal 4,66.88,4.7
+Montreal,YUL,Hotel Montreal 5,110.26,4.1
+Vancouver,YVR,Hotel Vancouver 1,456.41,3.7
+Vancouver,YVR,Hotel Vancouver 2,110.45,4.3
+Vancouver,YVR,Hotel Vancouver 3,161.82,4.3
+Vancouver,YVR,Hotel Vancouver 4,366.8,4.8
+Vancouver,YVR,Hotel Vancouver 5,183.45,3.9
+Praga,PRG,Hotel Praga 1,196.38,3.2
+Praga,PRG,Hotel Praga 2,492.78,3.2
+Praga,PRG,Hotel Praga 3,75.52,4.1
+Praga,PRG,Hotel Praga 4,51.75,3.5
+Praga,PRG,Hotel Praga 5,325.21,4.0
+Londres,LHR,Hotel Londres 1,313.63,4.2
+Londres,LHR,Hotel Londres 2,401.81,4.2
+Londres,LHR,Hotel Londres 3,89.44,3.5
+Londres,LHR,Hotel Londres 4,116.56,3.7
+Londres,LHR,Hotel Londres 5,143.59,3.9
+Berlín,BER,Hotel Berlín 1,146.57,3.6
+Berlín,BER,Hotel Berlín 2,317.77,4.1
+Berlín,BER,Hotel Berlín 3,495.94,4.5
+Berlín,BER,Hotel Berlín 4,492.11,3.7
+Berlín,BER,Hotel Berlín 5,77.39,4.3
+San Francisco,SFO,Hotel San Francisco 1,215.0,3.5
+San Francisco,SFO,Hotel San Francisco 2,331.94,3.2
+San Francisco,SFO,Hotel San Francisco 3,371.15,3.1
+San Francisco,SFO,Hotel San Francisco 4,208.12,3.7
+San Francisco,SFO,Hotel San Francisco 5,447.0,4.5
+Ciudad de México,MEX,Hotel Ciudad de México 1,298.49,4.1
+Ciudad de México,MEX,Hotel Ciudad de México 2,129.32,4.6
+Ciudad de México,MEX,Hotel Ciudad de México 3,286.71,3.7
+Ciudad de México,MEX,Hotel Ciudad de México 4,478.66,4.3
+Ciudad de México,MEX,Hotel Ciudad de México 5,446.28,4.4
+Zurich,ZRH,Hotel Zurich 1,287.69,4.1
+Zurich,ZRH,Hotel Zurich 2,113.34,3.3
+Zurich,ZRH,Hotel Zurich 3,400.14,4.4
+Zurich,ZRH,Hotel Zurich 4,53.27,3.9
+Zurich,ZRH,Hotel Zurich 5,72.69,3.9
+Moscú,SVO,Hotel Moscú 1,97.24,3.3
+Moscú,SVO,Hotel Moscú 2,363.04,4.8
+Moscú,SVO,Hotel Moscú 3,214.15,4.1
+Moscú,SVO,Hotel Moscú 4,490.61,3.2
+Moscú,SVO,Hotel Moscú 5,422.4,4.4
+Estocolmo,ARN,Hotel Estocolmo 1,97.46,4.7
+Estocolmo,ARN,Hotel Estocolmo 2,249.74,3.1
+Estocolmo,ARN,Hotel Estocolmo 3,94.58,4.7
+Estocolmo,ARN,Hotel Estocolmo 4,392.73,4.6
+Estocolmo,ARN,Hotel Estocolmo 5,203.99,4.5
+Helsinki,HEL,Hotel Helsinki 1,402.18,3.2
+Helsinki,HEL,Hotel Helsinki 2,130.95,4.6
+Helsinki,HEL,Hotel Helsinki 3,248.23,4.5
+Helsinki,HEL,Hotel Helsinki 4,227.23,4.3
+Helsinki,HEL,Hotel Helsinki 5,433.95,3.2
+Oslo,OSL,Hotel Oslo 1,496.78,3.2
+Oslo,OSL,Hotel Oslo 2,146.26,4.0
+Oslo,OSL,Hotel Oslo 3,79.64,3.0
+Oslo,OSL,Hotel Oslo 4,480.74,5.0
+Oslo,OSL,Hotel Oslo 5,112.53,4.9
+Copenhague,CPH,Hotel Copenhague 1,256.01,5.0
+Copenhague,CPH,Hotel Copenhague 2,476.93,3.5
+Copenhague,CPH,Hotel Copenhague 3,127.53,4.5
+Copenhague,CPH,Hotel Copenhague 4,471.37,4.0
+Copenhague,CPH,Hotel Copenhague 5,422.42,3.9
+Reykjavik,KEF,Hotel Reykjavik 1,430.71,4.4
+Reykjavik,KEF,Hotel Reykjavik 2,140.79,3.6
+Reykjavik,KEF,Hotel Reykjavik 3,153.13,4.8
+Reykjavik,KEF,Hotel Reykjavik 4,202.52,3.1
+Reykjavik,KEF,Hotel Reykjavik 5,203.63,4.4
+Ginebra,GVA,Hotel Ginebra 1,403.43,4.2
+Ginebra,GVA,Hotel Ginebra 2,302.22,3.5
+Ginebra,GVA,Hotel Ginebra 3,351.22,3.9
+Ginebra,GVA,Hotel Ginebra 4,123.88,4.5
+Ginebra,GVA,Hotel Ginebra 5,463.0,4.9
+Kitzbühel,INN,Hotel Kitzbühel 1,60.13,4.8
+Kitzbühel,INN,Hotel Kitzbühel 2,144.25,4.6
+Kitzbühel,INN,Hotel Kitzbühel 3,476.49,3.1
+Kitzbühel,INN,Hotel Kitzbühel 4,408.77,4.1
+Kitzbühel,INN,Hotel Kitzbühel 5,478.09,4.4
+Quebec,YQB,Hotel Quebec 1,428.25,3.3
+Quebec,YQB,Hotel Quebec 2,77.75,3.4
+Quebec,YQB,Hotel Quebec 3,402.52,3.5
+Quebec,YQB,Hotel Quebec 4,156.16,3.7
+Quebec,YQB,Hotel Quebec 5,295.3,4.3
+Los Angeles,LAX,Hotel Los Angeles 1,494.68,3.5
+Los Angeles,LAX,Hotel Los Angeles 2,455.84,3.5
+Los Angeles,LAX,Hotel Los Angeles 3,413.91,3.6
+Los Angeles,LAX,Hotel Los Angeles 4,402.8,4.4
+Los Angeles,LAX,Hotel Los Angeles 5,309.76,4.2
+Chicago,ORD,Hotel Chicago 1,292.28,4.3
+Chicago,ORD,Hotel Chicago 2,450.64,4.3
+Chicago,ORD,Hotel Chicago 3,252.32,3.6
+Chicago,ORD,Hotel Chicago 4,59.34,4.4
+Chicago,ORD,Hotel Chicago 5,431.06,3.1
+Houston,IAH,Hotel Houston 1,241.85,4.1
+Houston,IAH,Hotel Houston 2,494.27,4.4
+Houston,IAH,Hotel Houston 3,169.38,3.4
+Houston,IAH,Hotel Houston 4,317.76,3.3
+Houston,IAH,Hotel Houston 5,416.14,4.2
+Miami,MIA,Hotel Miami 1,442.28,4.7
+Miami,MIA,Hotel Miami 2,147.3,3.9
+Miami,MIA,Hotel Miami 3,190.49,3.2
+Miami,MIA,Hotel Miami 4,145.15,3.7
+Miami,MIA,Hotel Miami 5,219.37,3.1
+Vienna,VIE,Hotel Vienna 1,369.3,4.7
+Vienna,VIE,Hotel Vienna 2,242.75,3.2
+Vienna,VIE,Hotel Vienna 3,248.16,3.9
+Vienna,VIE,Hotel Vienna 4,403.71,4.7
+Vienna,VIE,Hotel Vienna 5,125.2,4.2
+Budapest,BUD,Hotel Budapest 1,421.86,3.7
+Budapest,BUD,Hotel Budapest 2,96.44,5.0
+Budapest,BUD,Hotel Budapest 3,258.73,4.3
+Budapest,BUD,Hotel Budapest 4,439.57,3.1
+Budapest,BUD,Hotel Budapest 5,221.54,4.4
+Warsaw,WAW,Hotel Warsaw 1,497.98,3.8
+Warsaw,WAW,Hotel Warsaw 2,299.4,3.4
+Warsaw,WAW,Hotel Warsaw 3,346.9,3.2
+Warsaw,WAW,Hotel Warsaw 4,151.33,4.6
+Warsaw,WAW,Hotel Warsaw 5,297.7,3.9
+Dublin,DUB,Hotel Dublin 1,349.69,3.8
+Dublin,DUB,Hotel Dublin 2,131.87,4.7
+Dublin,DUB,Hotel Dublin 3,448.03,4.4
+Dublin,DUB,Hotel Dublin 4,333.04,4.9
+Dublin,DUB,Hotel Dublin 5,331.43,3.2
+Brussels,BRU,Hotel Brussels 1,109.48,4.8
+Brussels,BRU,Hotel Brussels 2,218.97,3.6
+Brussels,BRU,Hotel Brussels 3,463.1,3.8
+Brussels,BRU,Hotel Brussels 4,52.35,3.4
+Brussels,BRU,Hotel Brussels 5,324.07,3.9
+Osaka,KIX,Hotel Osaka 1,479.4,3.4
+Osaka,KIX,Hotel Osaka 2,421.05,5.0
+Osaka,KIX,Hotel Osaka 3,287.38,3.7
+Osaka,KIX,Hotel Osaka 4,227.91,4.5
+Osaka,KIX,Hotel Osaka 5,216.01,3.0
+Beijing,PEK,Hotel Beijing 1,314.63,4.5
+Beijing,PEK,Hotel Beijing 2,468.57,4.3
+Beijing,PEK,Hotel Beijing 3,98.25,3.3
+Beijing,PEK,Hotel Beijing 4,262.83,3.7
+Beijing,PEK,Hotel Beijing 5,425.44,4.4
+Shanghai,PVG,Hotel Shanghai 1,489.25,3.5
+Shanghai,PVG,Hotel Shanghai 2,332.96,3.5
+Shanghai,PVG,Hotel Shanghai 3,135.45,3.2
+Shanghai,PVG,Hotel Shanghai 4,103.58,3.5
+Shanghai,PVG,Hotel Shanghai 5,368.66,3.1
+Bangkok,BKK,Hotel Bangkok 1,59.96,3.3
+Bangkok,BKK,Hotel Bangkok 2,187.81,4.9
+Bangkok,BKK,Hotel Bangkok 3,303.65,3.0
+Bangkok,BKK,Hotel Bangkok 4,313.52,3.1
+Bangkok,BKK,Hotel Bangkok 5,456.64,4.4
+Singapore,SIN,Hotel Singapore 1,211.68,4.0
+Singapore,SIN,Hotel Singapore 2,444.08,4.9
+Singapore,SIN,Hotel Singapore 3,363.18,3.7
+Singapore,SIN,Hotel Singapore 4,363.85,3.9
+Singapore,SIN,Hotel Singapore 5,436.5,3.9
+Kuala Lumpur,KUL,Hotel Kuala Lumpur 1,135.75,3.7
+Kuala Lumpur,KUL,Hotel Kuala Lumpur 2,308.24,3.3
+Kuala Lumpur,KUL,Hotel Kuala Lumpur 3,192.3,4.0
+Kuala Lumpur,KUL,Hotel Kuala Lumpur 4,61.88,4.6
+Kuala Lumpur,KUL,Hotel Kuala Lumpur 5,300.88,4.8
+Jakarta,CGK,Hotel Jakarta 1,159.46,4.0
+Jakarta,CGK,Hotel Jakarta 2,326.32,3.7
+Jakarta,CGK,Hotel Jakarta 3,367.71,4.7
+Jakarta,CGK,Hotel Jakarta 4,209.16,3.5
+Jakarta,CGK,Hotel Jakarta 5,313.1,3.1
+Manila,MNL,Hotel Manila 1,284.87,3.8
+Manila,MNL,Hotel Manila 2,87.72,4.7
+Manila,MNL,Hotel Manila 3,237.07,3.6
+Manila,MNL,Hotel Manila 4,346.23,3.8
+Manila,MNL,Hotel Manila 5,176.75,3.4
+Ho Chi Minh City,SGN,Hotel Ho Chi Minh City 1,94.36,4.9
+Ho Chi Minh City,SGN,Hotel Ho Chi Minh City 2,363.46,4.7
+Ho Chi Minh City,SGN,Hotel Ho Chi Minh City 3,357.64,5.0
+Ho Chi Minh City,SGN,Hotel Ho Chi Minh City 4,87.11,3.4
+Ho Chi Minh City,SGN,Hotel Ho Chi Minh City 5,221.82,5.0
+Hanoi,HAN,Hotel Hanoi 1,478.6,4.9
+Hanoi,HAN,Hotel Hanoi 2,155.26,3.5
+Hanoi,HAN,Hotel Hanoi 3,314.17,3.5
+Hanoi,HAN,Hotel Hanoi 4,219.64,3.5
+Hanoi,HAN,Hotel Hanoi 5,81.27,3.5
+New Delhi,DEL,Hotel New Delhi 1,466.67,4.6
+New Delhi,DEL,Hotel New Delhi 2,90.27,3.1
+New Delhi,DEL,Hotel New Delhi 3,214.57,4.0
+New Delhi,DEL,Hotel New Delhi 4,124.58,3.2
+New Delhi,DEL,Hotel New Delhi 5,184.7,4.8
+Mumbai,BOM,Hotel Mumbai 1,342.01,3.8
+Mumbai,BOM,Hotel Mumbai 2,157.19,4.1
+Mumbai,BOM,Hotel Mumbai 3,341.85,4.4
+Mumbai,BOM,Hotel Mumbai 4,345.03,3.3
+Mumbai,BOM,Hotel Mumbai 5,359.53,3.4
+Bangalore,BLR,Hotel Bangalore 1,350.23,3.8
+Bangalore,BLR,Hotel Bangalore 2,67.83,3.7
+Bangalore,BLR,Hotel Bangalore 3,455.91,4.7
+Bangalore,BLR,Hotel Bangalore 4,241.16,3.6
+Bangalore,BLR,Hotel Bangalore 5,308.71,5.0
+Chennai,MAA,Hotel Chennai 1,51.77,3.4
+Chennai,MAA,Hotel Chennai 2,351.32,4.2
+Chennai,MAA,Hotel Chennai 3,244.16,3.1
+Chennai,MAA,Hotel Chennai 4,95.12,4.3
+Chennai,MAA,Hotel Chennai 5,133.6,3.6
+Hyderabad,HYD,Hotel Hyderabad 1,118.76,3.0
+Hyderabad,HYD,Hotel Hyderabad 2,488.87,4.6
+Hyderabad,HYD,Hotel Hyderabad 3,486.62,3.4
+Hyderabad,HYD,Hotel Hyderabad 4,165.28,3.4
+Hyderabad,HYD,Hotel Hyderabad 5,289.85,4.0
+Cape Town,CPT,Hotel Cape Town 1,273.44,3.5
+Cape Town,CPT,Hotel Cape Town 2,117.73,3.4
+Cape Town,CPT,Hotel Cape Town 3,158.87,4.4
+Cape Town,CPT,Hotel Cape Town 4,477.7,4.2
+Cape Town,CPT,Hotel Cape Town 5,406.5,4.1
+Johannesburg,JNB,Hotel Johannesburg 1,220.75,3.1
+Johannesburg,JNB,Hotel Johannesburg 2,222.52,3.0
+Johannesburg,JNB,Hotel Johannesburg 3,322.11,4.7
+Johannesburg,JNB,Hotel Johannesburg 4,80.13,4.3
+Johannesburg,JNB,Hotel Johannesburg 5,121.97,4.6
+Cairo,CAI,Hotel Cairo 1,429.09,4.1
+Cairo,CAI,Hotel Cairo 2,260.23,3.6
+Cairo,CAI,Hotel Cairo 3,68.21,3.2
+Cairo,CAI,Hotel Cairo 4,74.21,4.6
+Cairo,CAI,Hotel Cairo 5,211.19,3.9
+Casablanca,CMN,Hotel Casablanca 1,490.24,4.9
+Casablanca,CMN,Hotel Casablanca 2,132.29,4.2
+Casablanca,CMN,Hotel Casablanca 3,102.41,3.9
+Casablanca,CMN,Hotel Casablanca 4,306.69,3.6
+Casablanca,CMN,Hotel Casablanca 5,309.63,4.9
+São Paulo,GRU,Hotel São Paulo 1,176.01,4.9
+São Paulo,GRU,Hotel São Paulo 2,268.7,3.3
+São Paulo,GRU,Hotel São Paulo 3,241.73,3.8
+São Paulo,GRU,Hotel São Paulo 4,93.73,3.3
+São Paulo,GRU,Hotel São Paulo 5,263.23,5.0
+Santiago,SCL,Hotel Santiago 1,168.61,4.0
+Santiago,SCL,Hotel Santiago 2,245.67,3.1
+Santiago,SCL,Hotel Santiago 3,360.72,3.3
+Santiago,SCL,Hotel Santiago 4,332.23,4.9
+Santiago,SCL,Hotel Santiago 5,422.79,4.9
+Bogotá,BOG,Hotel Bogotá 1,482.97,3.2
+Bogotá,BOG,Hotel Bogotá 2,167.08,3.6
+Bogotá,BOG,Hotel Bogotá 3,162.45,3.3
+Bogotá,BOG,Hotel Bogotá 4,427.98,4.4
+Bogotá,BOG,Hotel Bogotá 5,460.73,4.5
+Medellín,MDE,Hotel Medellín 1,334.97,3.7
+Medellín,MDE,Hotel Medellín 2,196.92,4.7
+Medellín,MDE,Hotel Medellín 3,409.46,3.5
+Medellín,MDE,Hotel Medellín 4,416.09,4.1
+Medellín,MDE,Hotel Medellín 5,285.36,4.7
+Caracas,CCS,Hotel Caracas 1,159.6,3.4
+Caracas,CCS,Hotel Caracas 2,435.89,3.9
+Caracas,CCS,Hotel Caracas 3,327.2,3.3
+Caracas,CCS,Hotel Caracas 4,207.04,3.5
+Caracas,CCS,Hotel Caracas 5,454.11,4.7
+Quito,UIO,Hotel Quito 1,393.59,3.8
+Quito,UIO,Hotel Quito 2,192.74,4.5
+Quito,UIO,Hotel Quito 3,180.05,3.6
+Quito,UIO,Hotel Quito 4,51.95,3.1
+Quito,UIO,Hotel Quito 5,63.62,3.2
+Panama City,PTY,Hotel Panama City 1,388.87,3.5
+Panama City,PTY,Hotel Panama City 2,141.89,3.8
+Panama City,PTY,Hotel Panama City 3,71.13,3.8
+Panama City,PTY,Hotel Panama City 4,90.55,3.7
+Panama City,PTY,Hotel Panama City 5,93.71,4.8
+Guadalajara,GDL,Hotel Guadalajara 1,147.36,4.4
+Guadalajara,GDL,Hotel Guadalajara 2,77.84,4.1
+Guadalajara,GDL,Hotel Guadalajara 3,345.41,3.3
+Guadalajara,GDL,Hotel Guadalajara 4,149.78,3.3
+Guadalajara,GDL,Hotel Guadalajara 5,362.54,3.6
+Punta Cana,PUJ,Hotel Punta Cana 1,180.77,3.7
+Punta Cana,PUJ,Hotel Punta Cana 2,280.55,4.9
+Punta Cana,PUJ,Hotel Punta Cana 3,216.17,3.3
+Punta Cana,PUJ,Hotel Punta Cana 4,210.36,3.3
+Punta Cana,PUJ,Hotel Punta Cana 5,445.81,4.7
+San Juan,SJU,Hotel San Juan 1,120.45,3.7
+San Juan,SJU,Hotel San Juan 2,253.17,4.0
+San Juan,SJU,Hotel San Juan 3,78.22,4.3
+San Juan,SJU,Hotel San Juan 4,377.2,3.8
+San Juan,SJU,Hotel San Juan 5,302.65,3.3
+Toronto,YYZ,Hotel Toronto 1,187.73,5.0
+Toronto,YYZ,Hotel Toronto 2,368.74,4.5
+Toronto,YYZ,Hotel Toronto 3,275.11,4.5
+Toronto,YYZ,Hotel Toronto 4,354.41,3.7
+Toronto,YYZ,Hotel Toronto 5,235.19,4.5
+Calgary,YYC,Hotel Calgary 1,194.14,3.8
+Calgary,YYC,Hotel Calgary 2,440.43,3.6
+Calgary,YYC,Hotel Calgary 3,224.65,4.5
+Calgary,YYC,Hotel Calgary 4,163.93,3.2
+Calgary,YYC,Hotel Calgary 5,218.49,3.5
+Ottawa,YOW,Hotel Ottawa 1,68.49,4.1
+Ottawa,YOW,Hotel Ottawa 2,387.5,3.6
+Ottawa,YOW,Hotel Ottawa 3,225.66,4.7
+Ottawa,YOW,Hotel Ottawa 4,375.13,4.2
+Ottawa,YOW,Hotel Ottawa 5,477.26,4.6
+Melbourne,MEL,Hotel Melbourne 1,169.37,4.0
+Melbourne,MEL,Hotel Melbourne 2,476.28,3.6
+Melbourne,MEL,Hotel Melbourne 3,253.29,4.4
+Melbourne,MEL,Hotel Melbourne 4,335.95,3.8
+Melbourne,MEL,Hotel Melbourne 5,492.21,3.5
+Brisbane,BNE,Hotel Brisbane 1,86.83,4.2
+Brisbane,BNE,Hotel Brisbane 2,242.25,3.9
+Brisbane,BNE,Hotel Brisbane 3,206.87,3.8
+Brisbane,BNE,Hotel Brisbane 4,430.4,3.9
+Brisbane,BNE,Hotel Brisbane 5,84.58,4.3
+Perth,PER,Hotel Perth 1,199.96,4.8
+Perth,PER,Hotel Perth 2,157.65,3.9
+Perth,PER,Hotel Perth 3,95.9,4.9
+Perth,PER,Hotel Perth 4,248.59,3.2
+Perth,PER,Hotel Perth 5,369.31,4.3
+Auckland,AKL,Hotel Auckland 1,285.73,3.4
+Auckland,AKL,Hotel Auckland 2,399.23,3.7
+Auckland,AKL,Hotel Auckland 3,241.65,3.4
+Auckland,AKL,Hotel Auckland 4,79.67,3.3
+Auckland,AKL,Hotel Auckland 5,249.59,4.0
+Wellington,WLG,Hotel Wellington 1,185.45,3.9
+Wellington,WLG,Hotel Wellington 2,86.01,3.4
+Wellington,WLG,Hotel Wellington 3,349.12,4.6
+Wellington,WLG,Hotel Wellington 4,161.67,4.9
+Wellington,WLG,Hotel Wellington 5,471.12,5.0
+Anchorage,ANC,Hotel Anchorage 1,71.5,4.3
+Anchorage,ANC,Hotel Anchorage 2,389.16,4.4
+Anchorage,ANC,Hotel Anchorage 3,154.53,3.5
+Anchorage,ANC,Hotel Anchorage 4,429.14,4.3
+Anchorage,ANC,Hotel Anchorage 5,168.74,4.3
+Tallinn,TLL,Hotel Tallinn 1,225.87,4.8
+Tallinn,TLL,Hotel Tallinn 2,338.15,3.5
+Tallinn,TLL,Hotel Tallinn 3,349.15,4.1
+Tallinn,TLL,Hotel Tallinn 4,199.42,4.9
+Tallinn,TLL,Hotel Tallinn 5,304.46,3.0
+Riga,RIX,Hotel Riga 1,141.26,4.3
+Riga,RIX,Hotel Riga 2,397.22,3.5
+Riga,RIX,Hotel Riga 3,98.08,3.7
+Riga,RIX,Hotel Riga 4,273.22,4.2
+Riga,RIX,Hotel Riga 5,283.33,4.2
+Vilnius,VNO,Hotel Vilnius 1,474.03,3.7
+Vilnius,VNO,Hotel Vilnius 2,493.53,4.4
+Vilnius,VNO,Hotel Vilnius 3,175.76,4.2
+Vilnius,VNO,Hotel Vilnius 4,114.5,3.4
+Vilnius,VNO,Hotel Vilnius 5,285.57,4.2
+Luxembourg,LUX,Hotel Luxembourg 1,320.14,4.0
+Luxembourg,LUX,Hotel Luxembourg 2,172.35,4.2
+Luxembourg,LUX,Hotel Luxembourg 3,358.2,4.7
+Luxembourg,LUX,Hotel Luxembourg 4,412.27,4.9
+Luxembourg,LUX,Hotel Luxembourg 5,84.94,3.4
+Monaco,NCE,Hotel Monaco 1,103.37,3.8
+Monaco,NCE,Hotel Monaco 2,145.73,4.3
+Monaco,NCE,Hotel Monaco 3,186.81,4.6
+Monaco,NCE,Hotel Monaco 4,50.65,3.8
+Monaco,NCE,Hotel Monaco 5,307.77,4.9
+San Marino,RMI,Hotel San Marino 1,380.45,4.0
+San Marino,RMI,Hotel San Marino 2,279.71,4.7
+San Marino,RMI,Hotel San Marino 3,263.64,4.1
+San Marino,RMI,Hotel San Marino 4,117.88,3.3
+San Marino,RMI,Hotel San Marino 5,414.67,4.5
+Andorra la Vella,LEU,Hotel Andorra la Vella 1,350.76,3.2
+Andorra la Vella,LEU,Hotel Andorra la Vella 2,418.34,4.4
+Andorra la Vella,LEU,Hotel Andorra la Vella 3,230.58,3.7
+Andorra la Vella,LEU,Hotel Andorra la Vella 4,369.44,3.6
+Andorra la Vella,LEU,Hotel Andorra la Vella 5,75.18,5.0
+Valletta,MLA,Hotel Valletta 1,396.82,4.0
+Valletta,MLA,Hotel Valletta 2,330.71,3.1
+Valletta,MLA,Hotel Valletta 3,344.11,3.2
+Valletta,MLA,Hotel Valletta 4,476.58,4.3
+Valletta,MLA,Hotel Valletta 5,330.83,4.2
+Doha,DOH,Hotel Doha 1,54.59,4.9
+Doha,DOH,Hotel Doha 2,390.32,3.4
+Doha,DOH,Hotel Doha 3,141.34,4.1
+Doha,DOH,Hotel Doha 4,196.28,4.7
+Doha,DOH,Hotel Doha 5,199.57,3.3
+Kuwait City,KWI,Hotel Kuwait City 1,292.98,3.1
+Kuwait City,KWI,Hotel Kuwait City 2,123.18,3.5
+Kuwait City,KWI,Hotel Kuwait City 3,425.93,4.2
+Kuwait City,KWI,Hotel Kuwait City 4,460.99,4.0
+Kuwait City,KWI,Hotel Kuwait City 5,230.82,4.2
+Manama,BAH,Hotel Manama 1,193.12,4.8
+Manama,BAH,Hotel Manama 2,350.94,3.8
+Manama,BAH,Hotel Manama 3,149.01,4.1
+Manama,BAH,Hotel Manama 4,131.58,4.2
+Manama,BAH,Hotel Manama 5,498.69,3.9
+Amman,AMM,Hotel Amman 1,111.41,4.7
+Amman,AMM,Hotel Amman 2,352.13,4.8
+Amman,AMM,Hotel Amman 3,401.12,3.6
+Amman,AMM,Hotel Amman 4,123.52,4.8
+Amman,AMM,Hotel Amman 5,340.08,3.4
+Jerusalén,TLV,Hotel Jerusalén 1,88.1,3.9
+Jerusalén,TLV,Hotel Jerusalén 2,248.78,3.4
+Jerusalén,TLV,Hotel Jerusalén 3,288.9,4.3
+Jerusalén,TLV,Hotel Jerusalén 4,327.13,3.4
+Jerusalén,TLV,Hotel Jerusalén 5,241.32,4.9
+Teherán,THR,Hotel Teherán 1,119.4,3.0
+Teherán,THR,Hotel Teherán 2,467.51,3.7
+Teherán,THR,Hotel Teherán 3,66.9,4.6
+Teherán,THR,Hotel Teherán 4,317.33,3.3
+Teherán,THR,Hotel Teherán 5,231.0,3.9
+Bagdad,BGW,Hotel Bagdad 1,412.83,3.6
+Bagdad,BGW,Hotel Bagdad 2,423.24,4.1
+Bagdad,BGW,Hotel Bagdad 3,455.13,4.9
+Bagdad,BGW,Hotel Bagdad 4,402.94,4.4
+Bagdad,BGW,Hotel Bagdad 5,158.46,4.1
+Beirut,BEY,Hotel Beirut 1,240.95,4.3
+Beirut,BEY,Hotel Beirut 2,202.56,3.2
+Beirut,BEY,Hotel Beirut 3,58.02,3.5
+Beirut,BEY,Hotel Beirut 4,117.67,3.8
+Beirut,BEY,Hotel Beirut 5,438.75,4.3
+Túnez,TUN,Hotel Túnez 1,220.53,3.5
+Túnez,TUN,Hotel Túnez 2,309.64,4.0
+Túnez,TUN,Hotel Túnez 3,107.44,3.4
+Túnez,TUN,Hotel Túnez 4,314.08,4.8
+Túnez,TUN,Hotel Túnez 5,61.87,3.4
+Argel,ALG,Hotel Argel 1,238.11,4.1
+Argel,ALG,Hotel Argel 2,278.28,3.5
+Argel,ALG,Hotel Argel 3,324.31,3.9
+Argel,ALG,Hotel Argel 4,451.0,3.7
+Argel,ALG,Hotel Argel 5,464.01,4.9
+Nairobi,NBO,Hotel Nairobi 1,162.8,4.5
+Nairobi,NBO,Hotel Nairobi 2,243.78,3.6
+Nairobi,NBO,Hotel Nairobi 3,386.93,4.0
+Nairobi,NBO,Hotel Nairobi 4,412.53,3.4
+Nairobi,NBO,Hotel Nairobi 5,78.52,3.5
+Adís Abeba,ADD,Hotel Adís Abeba 1,146.96,3.3
+Adís Abeba,ADD,Hotel Adís Abeba 2,250.95,4.9
+Adís Abeba,ADD,Hotel Adís Abeba 3,478.63,4.3
+Adís Abeba,ADD,Hotel Adís Abeba 4,189.98,4.2
+Adís Abeba,ADD,Hotel Adís Abeba 5,417.14,4.2
+Accra,ACC,Hotel Accra 1,458.26,4.1
+Accra,ACC,Hotel Accra 2,137.76,4.4
+Accra,ACC,Hotel Accra 3,328.88,4.2
+Accra,ACC,Hotel Accra 4,245.12,4.0
+Accra,ACC,Hotel Accra 5,396.67,3.2
