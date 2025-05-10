@@ -6,3 +6,5 @@ ciudades_con_reddit.csv
 Codigos_aeropuestos.csv
 Datos_climaticos_completos_hist.csv
 perfiles_completos_destinos_temporada.csv
+generate_list.py
+listado_destinos_coordenadas.csv
