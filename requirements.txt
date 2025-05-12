@@ -21,3 +21,6 @@ beautifulsoup4
 selenium
 webdriver-manager
 selenium-wire
+dask
+pydantic
+fastapi
