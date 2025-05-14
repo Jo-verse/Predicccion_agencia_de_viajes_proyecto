@@ -5,10 +5,25 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import pickle
 from sklearn.feature_selection import f_classif, SelectKBest
+<<<<<<< HEAD
+<<<<<<< HEAD
+import warnings
+import json
+import os
+import numpy as np
+
+
+=======
+=======
+>>>>>>> ee83c8946a25f4df4c282795394fbdeade2e5b90
 import json
 import os
 
 # Definición de variables globales
+<<<<<<< HEAD
+>>>>>>> ee83c8946a25f4df4c282795394fbdeade2e5b90
+=======
+>>>>>>> ee83c8946a25f4df4c282795394fbdeade2e5b90
 target_column = 'ciudad'
 inferencia = []
 columns_to_drop = ["evento_desc","evento_categoria","reddit_temp","reddit_hum","reddit_desc","airport_code","origin_iata","estimated_price_usd"]
@@ -173,7 +188,15 @@ def class_predictor_analysis(df):
     numerical_cols = df.select_dtypes(include='number').columns.difference([target_column])
     categorical_cols = df.select_dtypes(include=['object', 'category']).columns
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+    if len(categorical_cols) > 0:
+=======
     if not categorical_cols.empty:
+>>>>>>> ee83c8946a25f4df4c282795394fbdeade2e5b90
+=======
+    if not categorical_cols.empty:
+>>>>>>> ee83c8946a25f4df4c282795394fbdeade2e5b90
         cat_col = categorical_cols[0]
         top_cat = df[cat_col].value_counts().nlargest(5).index
         filtered_df = df[df[cat_col].isin(top_cat)]
@@ -203,6 +226,15 @@ def class_predictor_analysis(df):
 
 def correlation_analysis(df):
     """3.4 Análisis de correlaciones."""
+<<<<<<< HEAD
+<<<<<<< HEAD
+    sns.set(style="whitegrid")
+    warnings.filterwarnings("ignore", category=UserWarning)
+
+=======
+>>>>>>> ee83c8946a25f4df4c282795394fbdeade2e5b90
+=======
+>>>>>>> ee83c8946a25f4df4c282795394fbdeade2e5b90
     if categorical_to_numerical:
         for conversion in categorical_to_numerical:
             categorical_col = conversion['categorical_col']
@@ -235,6 +267,47 @@ def correlation_analysis(df):
     
 
 def categorical_numerical_correlation(df):
+<<<<<<< HEAD
+<<<<<<< HEAD
+    sns.set(style="whitegrid")
+    warnings.filterwarnings("ignore", category=UserWarning)
+
+    """Boxplots entre categóricas (top 5 valores) y variables numéricas."""
+    categorical_cols = df.select_dtypes(include=['object', 'category']).columns
+    numerical_cols = df.select_dtypes(include='number').columns
+    if len(categorical_cols) == 0 or len(numerical_cols) == 0:
+        print("No hay suficientes columnas numéricas y/o categóricas para generar los gráficos de correlación.")
+        return
+    for cat_col in categorical_cols:
+        top_vals = df[cat_col].value_counts().nlargest(5).index
+        filtered_df = df[df[cat_col].isin(top_vals)]
+        n = len(numerical_cols)
+        cols = 2
+        rows = (n + 1) // cols
+        fig, axes = plt.subplots(rows, cols, figsize=(12, 5 * rows))
+        axes = axes.flatten()
+        for i, num_col in enumerate(numerical_cols):
+            sns.boxplot(
+                data=filtered_df,
+                x=cat_col,
+                y=num_col,
+                order=top_vals,
+                palette="Set2", 
+                legend=False,
+                color='mediumseagreen',
+                ax=axes[i]
+            )
+            axes[i].set_title(f'{num_col} por {cat_col}')
+            axes[i].tick_params(axis='x', rotation=45)
+        # Eliminar subgráficos vacíos si sobran
+        for j in range(i + 1, len(axes)):
+            fig.delaxes(axes[j])
+        plt.tight_layout()
+        plt.suptitle(f'Boxplots de variables numéricas por {cat_col}', fontsize=16, y=1.02)
+        plt.show()
+=======
+=======
+>>>>>>> ee83c8946a25f4df4c282795394fbdeade2e5b90
     """Boxplots entre categóricas (top 5) y numéricas."""
     categorical_cols = df.select_dtypes(include=['object', 'category']).columns
     numerical_cols = df.select_dtypes(include='number').columns
@@ -251,6 +324,10 @@ def categorical_numerical_correlation(df):
     else:
         print("No hay suficientes columnas numéricas y/o categóricas para generar los gráficos de correlación.")
 
+<<<<<<< HEAD
+>>>>>>> ee83c8946a25f4df4c282795394fbdeade2e5b90
+=======
+>>>>>>> ee83c8946a25f4df4c282795394fbdeade2e5b90
 def pairplot_analysis(df):
     """4. Análisis de toda la data en una."""
     sns.pairplot(df)
@@ -261,12 +338,28 @@ def analyze_outliers(df):
     df_con_outliers = df.copy()
     df_sin_outliers = df.copy()
     numerical_cols = df.select_dtypes(include=['number']).columns.difference([target_column])
+<<<<<<< HEAD
+<<<<<<< HEAD
+    # Paleta de colores (puede ampliarse o repetirse si hay más columnas)
+    colores = sns.color_palette("Set2", n_colors=len(numerical_cols))
+=======
+>>>>>>> ee83c8946a25f4df4c282795394fbdeade2e5b90
+=======
+>>>>>>> ee83c8946a25f4df4c282795394fbdeade2e5b90
     num_cols = len(numerical_cols)
     rows = (num_cols + 4) // 5
     fig, axes = plt.subplots(rows, 5, figsize=(15, 5 * rows))
     axes = axes.flatten()
     for i, col in enumerate(numerical_cols):
+<<<<<<< HEAD
+<<<<<<< HEAD
+        sns.boxplot(ax=axes[i], data=df, y=col, color=colores[i % len(colores)])
+=======
         sns.boxplot(ax=axes[i], data=df, y=col)
+>>>>>>> ee83c8946a25f4df4c282795394fbdeade2e5b90
+=======
+        sns.boxplot(ax=axes[i], data=df, y=col)
+>>>>>>> ee83c8946a25f4df4c282795394fbdeade2e5b90
         axes[i].set_title(col)
     for j in range(num_cols, len(axes)):
         fig.delaxes(axes[j])
