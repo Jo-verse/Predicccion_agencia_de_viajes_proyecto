@@ -44,7 +44,7 @@ def univariate_categorical_analysis(df):
     cols_per_row = 3
     num_rows = (num_cols + cols_per_row - 1) // cols_per_row
     
-    fig, axs = plt.subplots(num_rows, cols_per_row, figsize=(15, num_rows * 4))
+    fig, axs = plt.subplots(num_rows, cols_per_row, figsize=(8, num_rows * 4))
     axs = axs.flatten()
 
     for i, col in enumerate(categorical_cols):
