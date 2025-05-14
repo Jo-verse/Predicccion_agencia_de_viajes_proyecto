@@ -58,4 +58,4 @@ ciudades_df = obtener_datos_clima()
 print(ciudades_df.head())
 
 # Guardar el DataFrame actualizado con la información del clima
-ciudades_df.to_csv('../Modelo_recomendaci-n_Agencia_de_viajes/data/processed/ciudades_con_clima.csv', index=False)
+ciudades_df.to_csv('../data/processed/ciudades_con_clima.csv', index=False)
