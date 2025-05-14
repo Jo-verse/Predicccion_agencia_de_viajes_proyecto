@@ -1,12 +1,12 @@
+estimated_price_eur_x
+estimated_price_eur_y
+distance_to_city_center_km
+class_n
 airline_n
 category
 clasificacion_destino_n
-class_n
 desc_actual_n
-distance_to_city_center_km
 entornos_n
-estimated_price_eur_x
-estimated_price_eur_y
 flight_duration_hr
 flight_price
 humedad_actual
@@ -18,3 +18,4 @@ temp_actual
 temp_max
 temp_min
 temporada_n
+ciudad
