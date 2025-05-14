@@ -40,6 +40,7 @@ def clean_irrelevant_data(df):
 
 def univariate_categorical_analysis(df):
     """Análisis univariante de variables categóricas (top 20)."""
+    filtered_df = df.copy()
     categorical_cols = df.select_dtypes(include=['object', 'category']).columns
     num_cols = len(categorical_cols)
     cols_per_row = 3
@@ -50,17 +51,19 @@ def univariate_categorical_analysis(df):
 
     for i, col in enumerate(categorical_cols):
         top_values = df[col].value_counts().nlargest(20).index
-        filtered_df[col] = filtered_df[col].apply(lambda x: x[:30] + '...' if len(x) > 30 else x
+        filtered_df = df[df[col].isin(top_values)].copy()
+
+        filtered_df[col] = filtered_df[col].apply(lambda x: x[:25] + '...' if isinstance(x, str) and len(x) > 25 else x)
+        
         sns.countplot(
             data=filtered_df,
             x=col,
-            order=top_values,
+            order=filtered_df[col].value_counts().index,
             ax=axs[i],
             hue=col,  # Se usa hue para aplicar la paleta
             palette='viridis',
-            legend=False  # Evita mostrar leyenda redundante
+            legend=False,  # Evita mostrar leyenda redundante
             dodge=False
-
         )
         axs[i].set_title(f'Distribución de {col}', fontsize=10)
         axs[i].tick_params(axis='x', labelrotation=45, labelsize=8)
