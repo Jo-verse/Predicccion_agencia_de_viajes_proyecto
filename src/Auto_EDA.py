@@ -5,10 +5,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import pickle
 from sklearn.feature_selection import f_classif, SelectKBest
+import warnings
 import json
 import os
+import numpy as np
 
-# Definición de variables globales
+
 target_column = 'ciudad'
 inferencia = []
 columns_to_drop = ["evento_desc","evento_categoria","reddit_temp","reddit_hum","reddit_desc","airport_code","origin_iata","estimated_price_usd"]
@@ -173,7 +175,7 @@ def class_predictor_analysis(df):
     numerical_cols = df.select_dtypes(include='number').columns.difference([target_column])
     categorical_cols = df.select_dtypes(include=['object', 'category']).columns
 
-    if not categorical_cols.empty:
+    if len(categorical_cols) > 0:
         cat_col = categorical_cols[0]
         top_cat = df[cat_col].value_counts().nlargest(5).index
         filtered_df = df[df[cat_col].isin(top_cat)]
@@ -203,6 +205,9 @@ def class_predictor_analysis(df):
 
 def correlation_analysis(df):
     """3.4 Análisis de correlaciones."""
+    sns.set(style="whitegrid")
+    warnings.filterwarnings("ignore", category=UserWarning)
+
     if categorical_to_numerical:
         for conversion in categorical_to_numerical:
             categorical_col = conversion['categorical_col']
@@ -233,7 +238,11 @@ def correlation_analysis(df):
     plt.tight_layout()
     plt.show()
     
+
 def categorical_numerical_correlation(df):
+    sns.set(style="whitegrid")
+    warnings.filterwarnings("ignore", category=UserWarning)
+
     """Boxplots entre categóricas (top 5 valores) y variables numéricas."""
     categorical_cols = df.select_dtypes(include=['object', 'category']).columns
     numerical_cols = df.select_dtypes(include='number').columns
@@ -254,7 +263,9 @@ def categorical_numerical_correlation(df):
                 x=cat_col,
                 y=num_col,
                 order=top_vals,
-                palette="Set2",
+                palette="Set2", 
+                legend=False,
+                color='mediumseagreen',
                 ax=axes[i]
             )
             axes[i].set_title(f'{num_col} por {cat_col}')
@@ -275,12 +286,14 @@ def analyze_outliers(df):
     df_con_outliers = df.copy()
     df_sin_outliers = df.copy()
     numerical_cols = df.select_dtypes(include=['number']).columns.difference([target_column])
+    # Paleta de colores (puede ampliarse o repetirse si hay más columnas)
+    colores = sns.color_palette("Set2", n_colors=len(numerical_cols))
     num_cols = len(numerical_cols)
     rows = (num_cols + 4) // 5
     fig, axes = plt.subplots(rows, 5, figsize=(15, 5 * rows))
     axes = axes.flatten()
     for i, col in enumerate(numerical_cols):
-        sns.boxplot(ax=axes[i], data=df, y=col)
+        sns.boxplot(ax=axes[i], data=df, y=col, color=colores[i % len(colores)])
         axes[i].set_title(col)
     for j in range(num_cols, len(axes)):
         fig.delaxes(axes[j])
