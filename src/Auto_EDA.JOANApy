@@ -37,46 +37,18 @@ def clean_irrelevant_data(df):
     print(f"Columnas irrelevantes eliminadas: {columns_to_drop}")
     return df
 
-
 def univariate_categorical_analysis(df):
     """Análisis univariante de variables categóricas (top 20)."""
     categorical_cols = df.select_dtypes(include=['object', 'category']).columns
-    num_cols = len(categorical_cols)
-    cols_per_row = 3
-    num_rows = (num_cols + cols_per_row - 1) // cols_per_row
-
-    fig, axs = plt.subplots(num_rows, cols_per_row, figsize=(15, num_rows * 4))
-    axs = axs.flatten()
-
-    for i, col in enumerate(categorical_cols):
+    for col in categorical_cols:
         top_values = df[col].value_counts().nlargest(20).index
-        filtered_df[col] = filtered_df[col].apply(lambda x: x[:30] + '...' if len(x) > 30 else x
-        sns.countplot(
-            data=filtered_df,
-            x=col,
-            order=top_values,
-            ax=axs[i],
-            hue=col,  # Se usa hue para aplicar la paleta
-            palette='viridis',
-            legend=False  # Evita mostrar leyenda redundante
-            dodge=False
-
-        )
-        axs[i].set_title(f'Distribución de {col}', fontsize=10)
-        axs[i].tick_params(axis='x', labelrotation=45, labelsize=8)
-        axs[i].set_xlabel('')
-        axs[i].set_ylabel('')
-        axs[i].margins(x=0.01)  # Reduce el espacio entre barras
-    for label in axs[i].get_xticklabels():
-        label.set_ha('right')
-
-    for j in range(i + 1, len(axs) if i + 1 < len(axs) else i + 1):
-        fig.delaxes(axs[j])
-
-    plt.tight_layout()
-    plt.show()
-
-
+        filtered_df = df[df[col].isin(top_values)]
+        plt.figure(figsize=(max(10, len(top_values)), 6))
+        sns.countplot(data=filtered_df, x=col, order=top_values)
+        plt.title(f'Distribución de {col}')
+        plt.xticks(rotation=45, ha='right')
+        plt.tight_layout()
+        plt.show()
 
 def univariate_numerical_analysis(df):
     """2.2 Análisis de variables numéricas."""
