@@ -166,29 +166,41 @@ def bivariate_categorical_analysis(df):
             ax.tick_params(axis='x', rotation=45)
         plt.tight_layout()
         plt.show()
+        plt.close(fig)
 
 
-
-
-
-def class_predictor_analysis(df):
-    """Gráficos entre variables numéricas y la primera categórica (top 5)."""
+def class_predictor_analysis(df, target_column):
+    """Gráficos tipo boxplot entre variables numéricas y la primera categórica (top 5 categorías)."""
     numerical_cols = df.select_dtypes(include='number').columns.difference([target_column])
     categorical_cols = df.select_dtypes(include=['object', 'category']).columns
+
     if not categorical_cols.empty:
         cat_col = categorical_cols[0]
         top_cat = df[cat_col].value_counts().nlargest(5).index
         filtered_df = df[df[cat_col].isin(top_cat)]
-        for col in numerical_cols:
-            plt.figure(figsize=(10, 6))
-            sns.boxplot(data=filtered_df, x=cat_col, y=col, order=top_cat)
-            plt.title(f'{col} por {cat_col}')
-            plt.xticks(rotation=45, ha='right')
-            plt.tight_layout()
-            plt.show()
+
+        num_cols = list(numerical_cols)
+        n = len(num_cols)
+        cols_per_row = 4
+        rows = (n + cols_per_row - 1) // cols_per_row
+
+        fig, axes = plt.subplots(rows, cols_per_row, figsize=(5 * cols_per_row, 5 * rows))
+        axes = axes.flatten()
+
+        for i, col in enumerate(num_cols):
+            sns.boxplot(data=filtered_df, x=cat_col, y=col, order=top_cat, color='mediumseagreen', ax=axes[i])
+            axes[i].set_title(f'{col} por {cat_col}')
+            axes[i].tick_params(axis='x', rotation=45)
+        
+        # Oculta ejes vacíos si hay menos de 4*n gráficos
+        for j in range(i + 1, len(axes)):
+            axes[j].axis('off')
+
+        plt.tight_layout()
+        plt.show()
 
     else:
-        print("No hay suficientes columnas numéricas y/o categóricas para generar los gráficos.")
+        pass  # No imprimir nada si no hay columnas categóricas
 
 def correlation_analysis(df):
     """3.4 Análisis de correlaciones."""
