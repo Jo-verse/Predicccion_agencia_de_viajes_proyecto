@@ -40,16 +40,25 @@ def clean_irrelevant_data(df):
 def univariate_categorical_analysis(df):
     """Análisis univariante de variables categóricas (top 20)."""
     categorical_cols = df.select_dtypes(include=['object', 'category']).columns
-    for col in categorical_cols:
-        top_values = df[col].value_counts().nlargest(20).index
-        filtered_df = df[df[col].isin(top_values)]
-        plt.figure(figsize=(max(10, len(top_values)), 6))
-        sns.countplot(data=filtered_df, x=col, order=top_values)
-        plt.title(f'Distribución de {col}')
-        plt.xticks(rotation=45, ha='right')
-        plt.tight_layout()
-        plt.show()
+    num_cols = len(categorical_cols)
+    cols_per_row = 3
+    num_rows = (num_cols + cols_per_row - 1) // cols_per_row
+    
+    fig, axs = plt.subplots(num_rows, cols_per_row, figsize=(15, num_rows * 4))
+    axs = axs.flatten()
 
+    for i, col in enumerate(categorical_cols):
+     top_values = df[col].value_counts().nlargest(20).index
+     filtered_df = df[df[col].isin(top_values)]
+     sns.countplot(data=filtered_df, x=col, order=top_values, ax=axs[i], palette='viridis')
+     axs[i].set_title(f'Distribución de {col}')
+     axs[i].tick_params(axis='x', rotation=45)
+     axs[i].set_xlabel('')
+     axs[i].set_ylabel('')
+     for j in range(i + 1, len(axs)):
+       fig.delaxes(axs[j])
+    plt.tight_layout()
+    plt.show()
 
 def univariate_numerical_analysis(df):
     """2.2 Análisis de variables numéricas."""
