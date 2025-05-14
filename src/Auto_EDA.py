@@ -208,16 +208,31 @@ def correlation_analysis(df):
             categorical_col = conversion['categorical_col']
             numerical_col = conversion.get('numerical_col', f"{categorical_col}_n")
             df[numerical_col] = pd.factorize(df[categorical_col])[0]
-            transformation_rules = {row[categorical_col]: row[numerical_col] for _, row in df[[categorical_col, numerical_col]].drop_duplicates().iterrows()}
+            transformation_rules = {
+                row[categorical_col]: row[numerical_col]
+                for _, row in df[[categorical_col, numerical_col]].drop_duplicates().iterrows()
+            }
             ruta_json = os.path.join("../data/processed/Json", f"{numerical_col}_transformation_rules.json")
-            os.makedirs(os.path.dirname(ruta_json), exist_ok=True) # Crea el directorio si no existe
+            os.makedirs(os.path.dirname(ruta_json), exist_ok=True)
             with open(ruta_json, "w") as f:
                 json.dump(transformation_rules, f)
     numerical_df = df.select_dtypes(include='number')
-    plt.figure(figsize=(10, 8))
-    sns.heatmap(numerical_df.corr(), annot=True, cmap='coolwarm')
-    plt.title('Matriz de correlación')
+    plt.figure(figsize=(14, 12))
+    sns.heatmap(
+        numerical_df.corr(),
+        annot=True,
+        fmt=".2f",
+        cmap="Set2",  # Podés cambiar por "vlag", "coolwarm", etc.
+        annot_kws={"size": 8},
+        linewidths=0.5,
+        cbar_kws={"shrink": 0.8}
+    )
+    plt.xticks(rotation=45, ha='right', fontsize=9)
+    plt.yticks(rotation=0, fontsize=9)
+    plt.title('Matriz de correlación', fontsize=14)
+    plt.tight_layout()
     plt.show()
+    
 
 def categorical_numerical_correlation(df):
     """Boxplots entre categóricas (top 5) y numéricas."""
