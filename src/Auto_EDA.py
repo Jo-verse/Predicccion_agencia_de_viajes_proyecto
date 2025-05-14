@@ -5,17 +5,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import pickle
 from sklearn.feature_selection import f_classif, SelectKBest
-<<<<<<< HEAD
-<<<<<<< HEAD
 import warnings
 import json
 import os
 import numpy as np
-
-
-=======
-=======
->>>>>>> ee83c8946a25f4df4c282795394fbdeade2e5b90
 import json
 import os
 
