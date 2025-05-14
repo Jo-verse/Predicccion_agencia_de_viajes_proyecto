@@ -132,20 +132,43 @@ def bivariate_numerical_analysis(df):
         plt.show()
 
 def bivariate_categorical_analysis(df):
-    """Análisis bivariante de variables categóricas (top 5 por variable)."""
+    """Análisis bivariante de variables categóricas (top 5 por variable), con visualización en filas de 3 gráficos."""
+    import seaborn as sns
+    import matplotlib.pyplot as plt
     from itertools import combinations
+    import warnings
+
+    sns.set(style="whitegrid")
+    warnings.filterwarnings("ignore", category=UserWarning)
+
     categorical_cols = df.select_dtypes(include=['object', 'category']).columns
     categorical_pairs = list(combinations(categorical_cols, 2))
+
+    valid_plots = []
+
     for col1, col2 in categorical_pairs:
         top1 = df[col1].value_counts().nlargest(5).index
         top2 = df[col2].value_counts().nlargest(5).index
         filtered_df = df[df[col1].isin(top1) & df[col2].isin(top2)]
-        plt.figure(figsize=(10, 6))
-        sns.countplot(data=filtered_df, x=col1, hue=col2, order=top1, hue_order=top2)
-        plt.title(f'{col1} por {col2}')
-        plt.xticks(rotation=45, ha='right')
+
+        if not filtered_df.empty:
+            valid_plots.append((col1, col2, filtered_df, top1, top2))
+
+    # Mostrar los gráficos en filas de 3
+    for i in range(0, len(valid_plots), 3):
+        subset = valid_plots[i:i+3]
+        fig, axes = plt.subplots(1, len(subset), figsize=(6 * len(subset), 5))
+        if len(subset) == 1:
+            axes = [axes]
+        for ax, (col1, col2, data, top1, top2) in zip(axes, subset):
+            sns.countplot(data=data, x=col1, hue=col2, order=top1, hue_order=top2, ax=ax, palette="Set2")
+            ax.set_title(f'{col1} por {col2}')
+            ax.tick_params(axis='x', rotation=45)
         plt.tight_layout()
         plt.show()
+
+
+
 
 
 def class_predictor_analysis(df):
