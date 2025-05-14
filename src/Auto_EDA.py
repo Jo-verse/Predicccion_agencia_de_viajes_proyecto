@@ -144,33 +144,73 @@ def correlation_analysis(df):
             categorical_col = conversion['categorical_col']
             numerical_col = conversion.get('numerical_col', f"{categorical_col}_n")
             df[numerical_col] = pd.factorize(df[categorical_col])[0]
-            transformation_rules = {row[categorical_col]: row[numerical_col] for _, row in df[[categorical_col, numerical_col]].drop_duplicates().iterrows()}
+            transformation_rules = {
+                row[categorical_col]: row[numerical_col]
+                for _, row in df[[categorical_col, numerical_col]].drop_duplicates().iterrows()
+            }
             ruta_json = os.path.join("../data/processed/Json", f"{numerical_col}_transformation_rules.json")
-            os.makedirs(os.path.dirname(ruta_json), exist_ok=True) # Crea el directorio si no existe
+            os.makedirs(os.path.dirname(ruta_json), exist_ok=True)
             with open(ruta_json, "w") as f:
                 json.dump(transformation_rules, f)
+
     numerical_df = df.select_dtypes(include='number')
-    plt.figure(figsize=(10, 8))
-    sns.heatmap(numerical_df.corr(), annot=True, cmap='coolwarm')
-    plt.title('Matriz de correlación')
+
+    plt.figure(figsize=(14, 12))
+    sns.heatmap(
+        numerical_df.corr(),
+        annot=True,
+        fmt=".2f",
+        cmap="Set2",  # Podés cambiar por "vlag", "coolwarm", etc.
+        annot_kws={"size": 8},
+        linewidths=0.5,
+        cbar_kws={"shrink": 0.8}
+    )
+    plt.xticks(rotation=45, ha='right', fontsize=9)
+    plt.yticks(rotation=0, fontsize=9)
+    plt.title('Matriz de correlación', fontsize=14)
+    plt.tight_layout()
     plt.show()
 
 def categorical_numerical_correlation(df):
-    """Boxplots entre categóricas (top 5) y numéricas."""
+    """Boxplots entre categóricas (top 5 valores) y variables numéricas."""
+
     categorical_cols = df.select_dtypes(include=['object', 'category']).columns
     numerical_cols = df.select_dtypes(include='number').columns
+
+    if len(categorical_cols) == 0 or len(numerical_cols) == 0:
+        print("No hay suficientes columnas numéricas y/o categóricas para generar los gráficos de correlación.")
+        return
+
     for cat_col in categorical_cols:
         top_vals = df[cat_col].value_counts().nlargest(5).index
         filtered_df = df[df[cat_col].isin(top_vals)]
-        for num_col in numerical_cols:
-            plt.figure(figsize=(10, 6))
-            sns.boxplot(data=filtered_df, x=cat_col, y=num_col, order=top_vals)
-            plt.title(f'{num_col} por {cat_col}')
-            plt.xticks(rotation=45, ha='right')
-            plt.tight_layout()
-            plt.show()
-    else:
-        print("No hay suficientes columnas numéricas y/o categóricas para generar los gráficos de correlación.")
+
+        n = len(numerical_cols)
+        cols = 2
+        rows = (n + 1) // cols
+
+        fig, axes = plt.subplots(rows, cols, figsize=(12, 5 * rows))
+        axes = axes.flatten()
+
+        for i, num_col in enumerate(numerical_cols):
+            sns.boxplot(
+                data=filtered_df,
+                x=cat_col,
+                y=num_col,
+                order=top_vals,
+                palette="Set2",
+                ax=axes[i]
+            )
+            axes[i].set_title(f'{num_col} por {cat_col}')
+            axes[i].tick_params(axis='x', rotation=45)
+
+        # Eliminar subgráficos vacíos si sobran
+        for j in range(i + 1, len(axes)):
+            fig.delaxes(axes[j])
+
+        plt.tight_layout()
+        plt.suptitle(f'Boxplots de variables numéricas por {cat_col}', fontsize=16, y=1.02)
+        plt.show()
 
 def pairplot_analysis(df):
     """4. Análisis de toda la data en una."""
@@ -182,17 +222,25 @@ def analyze_outliers(df):
     df_con_outliers = df.copy()
     df_sin_outliers = df.copy()
     numerical_cols = df.select_dtypes(include=['number']).columns.difference([target_column])
+    
+    # Paleta de colores (puede ampliarse o repetirse si hay más columnas)
+    colores = sns.color_palette("Set2", n_colors=len(numerical_cols))
+    
     num_cols = len(numerical_cols)
     rows = (num_cols + 4) // 5
     fig, axes = plt.subplots(rows, 5, figsize=(15, 5 * rows))
     axes = axes.flatten()
+
     for i, col in enumerate(numerical_cols):
-        sns.boxplot(ax=axes[i], data=df, y=col)
+        sns.boxplot(ax=axes[i], data=df, y=col, color=colores[i % len(colores)])
         axes[i].set_title(col)
+
     for j in range(num_cols, len(axes)):
         fig.delaxes(axes[j])
+
     plt.tight_layout()
     plt.show()
+    
     return df_sin_outliers, numerical_cols
 
 def replace_outliers(df_sin_outliers, numerical_cols):
@@ -246,7 +294,7 @@ def infer_new_features(df_sin_outliers):
         print("No hay columnas que apliquen para la inferencia.")
     return df_sin_outliers
 
-def feature_scaling(df, df_sin_outliers, ruta_guardado="../data/processed/X&Ys"):
+def feature_scaling(df, df_sin_outliers, ruta_guardado="../data/processed"):
     """6. Feature Scalling."""
     numerical_cols = df.select_dtypes(include=['number']).columns.difference([target_column])
     X_con_outliers = df.drop(target_column, axis=1)[numerical_cols]
