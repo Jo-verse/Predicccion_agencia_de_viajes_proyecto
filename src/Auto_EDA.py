@@ -233,24 +233,38 @@ def correlation_analysis(df):
     plt.tight_layout()
     plt.show()
     
-
 def categorical_numerical_correlation(df):
-    """Boxplots entre categóricas (top 5) y numéricas."""
+    """Boxplots entre categóricas (top 5 valores) y variables numéricas."""
     categorical_cols = df.select_dtypes(include=['object', 'category']).columns
     numerical_cols = df.select_dtypes(include='number').columns
+    if len(categorical_cols) == 0 or len(numerical_cols) == 0:
+        print("No hay suficientes columnas numéricas y/o categóricas para generar los gráficos de correlación.")
+        return
     for cat_col in categorical_cols:
         top_vals = df[cat_col].value_counts().nlargest(5).index
         filtered_df = df[df[cat_col].isin(top_vals)]
-        for num_col in numerical_cols:
-            plt.figure(figsize=(10, 6))
-            sns.boxplot(data=filtered_df, x=cat_col, y=num_col, order=top_vals)
-            plt.title(f'{num_col} por {cat_col}')
-            plt.xticks(rotation=45, ha='right')
-            plt.tight_layout()
-            plt.show()
-    else:
-        print("No hay suficientes columnas numéricas y/o categóricas para generar los gráficos de correlación.")
-
+        n = len(numerical_cols)
+        cols = 2
+        rows = (n + 1) // cols
+        fig, axes = plt.subplots(rows, cols, figsize=(12, 5 * rows))
+        axes = axes.flatten()
+        for i, num_col in enumerate(numerical_cols):
+            sns.boxplot(
+                data=filtered_df,
+                x=cat_col,
+                y=num_col,
+                order=top_vals,
+                palette="Set2",
+                ax=axes[i]
+            )
+            axes[i].set_title(f'{num_col} por {cat_col}')
+            axes[i].tick_params(axis='x', rotation=45)
+        # Eliminar subgráficos vacíos si sobran
+        for j in range(i + 1, len(axes)):
+            fig.delaxes(axes[j])
+        plt.tight_layout()
+        plt.suptitle(f'Boxplots de variables numéricas por {cat_col}', fontsize=16, y=1.02)
+        plt.show()
 def pairplot_analysis(df):
     """4. Análisis de toda la data en una."""
     sns.pairplot(df)
