@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 estimated_price_eur_x
 estimated_price_eur_y
 distance_to_city_center_km
@@ -9,6 +10,8 @@ clasificacion_destino_n
 desc_actual_n
 entornos_n
 =======
+=======
+>>>>>>> ee83c8946a25f4df4c282795394fbdeade2e5b90
 airline_n
 category
 clasificacion_destino_n
@@ -18,6 +21,9 @@ distance_to_city_center_km
 entornos_n
 estimated_price_eur_x
 estimated_price_eur_y
+<<<<<<< HEAD
+>>>>>>> ee83c8946a25f4df4c282795394fbdeade2e5b90
+=======
 >>>>>>> ee83c8946a25f4df4c282795394fbdeade2e5b90
 flight_duration_hr
 flight_price
@@ -31,6 +37,9 @@ temp_max
 temp_min
 temporada_n
 <<<<<<< HEAD
+<<<<<<< HEAD
 ciudad
+=======
+>>>>>>> ee83c8946a25f4df4c282795394fbdeade2e5b90
 =======
 >>>>>>> ee83c8946a25f4df4c282795394fbdeade2e5b90
