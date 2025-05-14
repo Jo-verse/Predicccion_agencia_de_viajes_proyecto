@@ -168,8 +168,7 @@ def bivariate_categorical_analysis(df):
         plt.show()
         plt.close(fig)
 
-
-def class_predictor_analysis(df, target_column):
+def class_predictor_analysis(df):
     """Gráficos tipo boxplot entre variables numéricas y la primera categórica (top 5 categorías)."""
     numerical_cols = df.select_dtypes(include='number').columns.difference([target_column])
     categorical_cols = df.select_dtypes(include=['object', 'category']).columns
