@@ -37,18 +37,48 @@ def clean_irrelevant_data(df):
     print(f"Columnas irrelevantes eliminadas: {columns_to_drop}")
     return df
 
+
 def univariate_categorical_analysis(df):
     """Análisis univariante de variables categóricas (top 20)."""
+    filtered_df = df.copy()
     categorical_cols = df.select_dtypes(include=['object', 'category']).columns
-    for col in categorical_cols:
+    num_cols = len(categorical_cols)
+    cols_per_row = 3
+    num_rows = (num_cols + cols_per_row - 1) // cols_per_row
+
+    fig, axs = plt.subplots(num_rows, cols_per_row, figsize=(15, num_rows * 4))
+    axs = axs.flatten()
+
+    for i, col in enumerate(categorical_cols):
         top_values = df[col].value_counts().nlargest(20).index
-        filtered_df = df[df[col].isin(top_values)]
-        plt.figure(figsize=(max(10, len(top_values)), 6))
-        sns.countplot(data=filtered_df, x=col, order=top_values)
-        plt.title(f'Distribución de {col}')
-        plt.xticks(rotation=45, ha='right')
-        plt.tight_layout()
-        plt.show()
+        filtered_df = df[df[col].isin(top_values)].copy()
+
+        filtered_df[col] = filtered_df[col].apply(lambda x: x[:25] + '...' if isinstance(x, str) and len(x) > 25 else x)
+        
+        sns.countplot(
+            data=filtered_df,
+            x=col,
+            order=filtered_df[col].value_counts().index,
+            ax=axs[i],
+            hue=col,  # Se usa hue para aplicar la paleta
+            palette='viridis',
+            legend=False,  # Evita mostrar leyenda redundante
+            dodge=False
+        )
+        axs[i].set_title(f'Distribución de {col}', fontsize=10)
+        axs[i].tick_params(axis='x', labelrotation=45, labelsize=8)
+        axs[i].set_xlabel('')
+        axs[i].set_ylabel('')
+        axs[i].margins(x=0.01)  # Reduce el espacio entre barras
+    for label in axs[i].get_xticklabels():
+        label.set_ha('right')
+
+    for j in range(i + 1, len(axs) if i + 1 < len(axs) else i + 1):
+        fig.delaxes(axs[j])
+
+    plt.tight_layout()
+    plt.show()
+
 
 
 def univariate_numerical_analysis(df):
@@ -102,40 +132,74 @@ def bivariate_numerical_analysis(df):
         plt.show()
 
 def bivariate_categorical_analysis(df):
-    """Análisis bivariante de variables categóricas (top 5 por variable)."""
+    """Análisis bivariante de variables categóricas (top 5 por variable), con visualización en filas de 3 gráficos."""
+    import seaborn as sns
+    import matplotlib.pyplot as plt
     from itertools import combinations
+    import warnings
+
+    sns.set(style="whitegrid")
+    warnings.filterwarnings("ignore", category=UserWarning)
+
     categorical_cols = df.select_dtypes(include=['object', 'category']).columns
     categorical_pairs = list(combinations(categorical_cols, 2))
+
+    valid_plots = []
+
     for col1, col2 in categorical_pairs:
         top1 = df[col1].value_counts().nlargest(5).index
         top2 = df[col2].value_counts().nlargest(5).index
         filtered_df = df[df[col1].isin(top1) & df[col2].isin(top2)]
-        plt.figure(figsize=(10, 6))
-        sns.countplot(data=filtered_df, x=col1, hue=col2, order=top1, hue_order=top2)
-        plt.title(f'{col1} por {col2}')
-        plt.xticks(rotation=45, ha='right')
+
+        if not filtered_df.empty:
+            valid_plots.append((col1, col2, filtered_df, top1, top2))
+
+    # Mostrar los gráficos en filas de 3
+    for i in range(0, len(valid_plots), 3):
+        subset = valid_plots[i:i+3]
+        fig, axes = plt.subplots(1, len(subset), figsize=(6 * len(subset), 5))
+        if len(subset) == 1:
+            axes = [axes]
+        for ax, (col1, col2, data, top1, top2) in zip(axes, subset):
+            sns.countplot(data=data, x=col1, hue=col2, order=top1, hue_order=top2, ax=ax, palette="Set2")
+            ax.set_title(f'{col1} por {col2}')
+            ax.tick_params(axis='x', rotation=45)
         plt.tight_layout()
         plt.show()
-
+        plt.close(fig)
 
 def class_predictor_analysis(df):
-    """Gráficos entre variables numéricas y la primera categórica (top 5)."""
+    """Gráficos tipo boxplot entre variables numéricas y la primera categórica (top 5 categorías)."""
     numerical_cols = df.select_dtypes(include='number').columns.difference([target_column])
     categorical_cols = df.select_dtypes(include=['object', 'category']).columns
+
     if not categorical_cols.empty:
         cat_col = categorical_cols[0]
         top_cat = df[cat_col].value_counts().nlargest(5).index
         filtered_df = df[df[cat_col].isin(top_cat)]
-        for col in numerical_cols:
-            plt.figure(figsize=(10, 6))
-            sns.boxplot(data=filtered_df, x=cat_col, y=col, order=top_cat)
-            plt.title(f'{col} por {cat_col}')
-            plt.xticks(rotation=45, ha='right')
-            plt.tight_layout()
-            plt.show()
+
+        num_cols = list(numerical_cols)
+        n = len(num_cols)
+        cols_per_row = 4
+        rows = (n + cols_per_row - 1) // cols_per_row
+
+        fig, axes = plt.subplots(rows, cols_per_row, figsize=(5 * cols_per_row, 5 * rows))
+        axes = axes.flatten()
+
+        for i, col in enumerate(num_cols):
+            sns.boxplot(data=filtered_df, x=cat_col, y=col, order=top_cat, color='mediumseagreen', ax=axes[i])
+            axes[i].set_title(f'{col} por {cat_col}')
+            axes[i].tick_params(axis='x', rotation=45)
+        
+        # Oculta ejes vacíos si hay menos de 4*n gráficos
+        for j in range(i + 1, len(axes)):
+            axes[j].axis('off')
+
+        plt.tight_layout()
+        plt.show()
 
     else:
-        print("No hay suficientes columnas numéricas y/o categóricas para generar los gráficos.")
+        pass  # No imprimir nada si no hay columnas categóricas
 
 def correlation_analysis(df):
     """3.4 Análisis de correlaciones."""
@@ -152,9 +216,7 @@ def correlation_analysis(df):
             os.makedirs(os.path.dirname(ruta_json), exist_ok=True)
             with open(ruta_json, "w") as f:
                 json.dump(transformation_rules, f)
-
     numerical_df = df.select_dtypes(include='number')
-
     plt.figure(figsize=(14, 12))
     sns.heatmap(
         numerical_df.corr(),
@@ -170,28 +232,23 @@ def correlation_analysis(df):
     plt.title('Matriz de correlación', fontsize=14)
     plt.tight_layout()
     plt.show()
+    
 
 def categorical_numerical_correlation(df):
     """Boxplots entre categóricas (top 5 valores) y variables numéricas."""
-
     categorical_cols = df.select_dtypes(include=['object', 'category']).columns
     numerical_cols = df.select_dtypes(include='number').columns
-
     if len(categorical_cols) == 0 or len(numerical_cols) == 0:
         print("No hay suficientes columnas numéricas y/o categóricas para generar los gráficos de correlación.")
         return
-
     for cat_col in categorical_cols:
         top_vals = df[cat_col].value_counts().nlargest(5).index
         filtered_df = df[df[cat_col].isin(top_vals)]
-
         n = len(numerical_cols)
         cols = 2
         rows = (n + 1) // cols
-
         fig, axes = plt.subplots(rows, cols, figsize=(12, 5 * rows))
         axes = axes.flatten()
-
         for i, num_col in enumerate(numerical_cols):
             sns.boxplot(
                 data=filtered_df,
@@ -203,11 +260,9 @@ def categorical_numerical_correlation(df):
             )
             axes[i].set_title(f'{num_col} por {cat_col}')
             axes[i].tick_params(axis='x', rotation=45)
-
         # Eliminar subgráficos vacíos si sobran
         for j in range(i + 1, len(axes)):
             fig.delaxes(axes[j])
-
         plt.tight_layout()
         plt.suptitle(f'Boxplots de variables numéricas por {cat_col}', fontsize=16, y=1.02)
         plt.show()
@@ -222,25 +277,19 @@ def analyze_outliers(df):
     df_con_outliers = df.copy()
     df_sin_outliers = df.copy()
     numerical_cols = df.select_dtypes(include=['number']).columns.difference([target_column])
-    
     # Paleta de colores (puede ampliarse o repetirse si hay más columnas)
     colores = sns.color_palette("Set2", n_colors=len(numerical_cols))
-    
     num_cols = len(numerical_cols)
     rows = (num_cols + 4) // 5
     fig, axes = plt.subplots(rows, 5, figsize=(15, 5 * rows))
     axes = axes.flatten()
-
     for i, col in enumerate(numerical_cols):
         sns.boxplot(ax=axes[i], data=df, y=col, color=colores[i % len(colores)])
         axes[i].set_title(col)
-
     for j in range(num_cols, len(axes)):
         fig.delaxes(axes[j])
-
     plt.tight_layout()
     plt.show()
-    
     return df_sin_outliers, numerical_cols
 
 def replace_outliers(df_sin_outliers, numerical_cols):
@@ -311,7 +360,7 @@ def feature_scaling(df, df_sin_outliers, ruta_guardado="../data/processed"):
     print("Archivos creados: X_train_con_outliers.xlsx, X_train_sin_outliers.xlsx, X_test_con_outliers.xlsx, X_test_sin_outliers.xlsx, y_train.xlsx, y_test.xlsx")
     return X_train_con_outliers, X_test_con_outliers, X_train_sin_outliers, X_test_sin_outliers, y_train, y_test, numerical_cols
 
-def normalize_data(X_train_con_outliers, X_test_con_outliers, X_train_sin_outliers, X_test_sin_outliers, numerical_cols, ruta_guardado="../data/processed/X&Ys", ruta_modelo="../models/"):
+def normalize_data(X_train_con_outliers, X_test_con_outliers, X_train_sin_outliers, X_test_sin_outliers, numerical_cols, ruta_guardado="../data/processed", ruta_modelo="../models/"):
     """6.1 Normalización."""
     normalizador_con_outliers = StandardScaler()
     normalizador_con_outliers.fit(X_train_con_outliers)
@@ -336,7 +385,7 @@ def normalize_data(X_train_con_outliers, X_test_con_outliers, X_train_sin_outlie
     print("Archivos creados: X_train_con_outliers_norm.xlsx, X_test_con_outliers_norm.xlsx, X_train_sin_outliers_norm.xlsx, X_test_sin_outliers_norm.xlsx")
     return X_train_con_outliers_norm, X_test_con_outliers_norm, X_train_sin_outliers_norm, X_test_sin_outliers_norm
 
-def scale_min_max_data_1(X_train_con_outliers, X_test_con_outliers, X_train_sin_outliers, X_test_sin_outliers, numerical_cols, ruta_guardado="../data/processed/X&Ys", ruta_modelo="../models/"):
+def scale_min_max_data_1(X_train_con_outliers, X_test_con_outliers, X_train_sin_outliers, X_test_sin_outliers, numerical_cols, ruta_guardado="../data/processed", ruta_modelo="../models/"):
     """
     Escala los DataFrames, guarda los scalers entrenados y los resultados en archivos XLSX.
 
