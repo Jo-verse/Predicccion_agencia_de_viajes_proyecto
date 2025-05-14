@@ -12,7 +12,11 @@ import os
 target_column = 'ciudad'
 inferencia = []
 <<<<<<< HEAD
+<<<<<<< HEAD
 columns_to_drop = ["evento_desc","evento_categoria","reddit_temp","reddit_hum","reddit_desc","airport_code","origin_iata","estimated_price_usd"]
+=======
+columns_to_drop = ["evento_desc","evento_categoria"]
+>>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
 =======
 columns_to_drop = ["evento_desc","evento_categoria"]
 >>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
@@ -41,6 +45,7 @@ def clean_irrelevant_data(df):
     print(f"Columnas irrelevantes eliminadas: {columns_to_drop}")
     return df
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 def univariate_categorical_analysis(df):
@@ -81,6 +86,8 @@ def univariate_categorical_analysis(df):
     for j in range(i + 1, len(axs) if i + 1 < len(axs) else i + 1):
         fig.delaxes(axs[j])
 =======
+=======
+>>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
 def univariate_categorical_analysis(df):
     """Análisis univariante de variables categóricas."""
     categorical_cols = df.select_dtypes(include=['object']).columns
@@ -100,14 +107,20 @@ def univariate_categorical_analysis(df):
 
     for i in range(num_categorical, len(axes)):
         fig.delaxes(axes[i])
+<<<<<<< HEAD
+>>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
+=======
 >>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
 
     plt.tight_layout()
     plt.show()
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
 =======
 >>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
 def univariate_numerical_analysis(df):
@@ -161,6 +174,7 @@ def bivariate_numerical_analysis(df):
         plt.show()
 
 def bivariate_categorical_analysis(df):
+<<<<<<< HEAD
 <<<<<<< HEAD
     """Análisis bivariante de variables categóricas (top 5 por variable), con visualización en filas de 3 gráficos."""
     import seaborn as sns
@@ -225,6 +239,8 @@ def class_predictor_analysis(df):
         for j in range(i + 1, len(axes)):
             axes[j].axis('off')
 =======
+=======
+>>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
     """Análisis bivariante de variables categóricas."""
     categorical_cols = df.select_dtypes(include=['object']).columns
 
@@ -269,6 +285,9 @@ def class_predictor_analysis(df):
 
         for i in range(plot_index + 1, len(axes)):
             fig.delaxes(axes[i])
+<<<<<<< HEAD
+>>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
+=======
 >>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
 
         plt.tight_layout()
@@ -276,7 +295,11 @@ def class_predictor_analysis(df):
 
     else:
 <<<<<<< HEAD
+<<<<<<< HEAD
         pass  # No imprimir nada si no hay columnas categóricas
+=======
+        print("No hay suficientes columnas numéricas y/o categóricas para generar los gráficos.")
+>>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
 =======
         print("No hay suficientes columnas numéricas y/o categóricas para generar los gráficos.")
 >>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
@@ -288,6 +311,7 @@ def correlation_analysis(df):
             categorical_col = conversion['categorical_col']
             numerical_col = conversion.get('numerical_col', f"{categorical_col}_n")
             df[numerical_col] = pd.factorize(df[categorical_col])[0]
+<<<<<<< HEAD
 <<<<<<< HEAD
             transformation_rules = {
                 row[categorical_col]: row[numerical_col]
@@ -348,6 +372,8 @@ def categorical_numerical_correlation(df):
         plt.suptitle(f'Boxplots de variables numéricas por {cat_col}', fontsize=16, y=1.02)
         plt.show()
 =======
+=======
+>>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
             transformation_rules = {row[categorical_col]: row[numerical_col] for _, row in df[[categorical_col, numerical_col]].drop_duplicates().iterrows()}
             ruta_json = os.path.join("../data/processed/Json", f"{numerical_col}_transformation_rules.json")
             os.makedirs(os.path.dirname(ruta_json), exist_ok=True) # Crea el directorio si no existe
@@ -373,6 +399,9 @@ def categorical_numerical_correlation(df):
                 plt.show()
     else:
         print("No hay suficientes columnas numéricas y/o categóricas para generar los gráficos de correlación.")
+<<<<<<< HEAD
+>>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
+=======
 >>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
 
 def pairplot_analysis(df):
@@ -386,8 +415,11 @@ def analyze_outliers(df):
     df_sin_outliers = df.copy()
     numerical_cols = df.select_dtypes(include=['number']).columns.difference([target_column])
 <<<<<<< HEAD
+<<<<<<< HEAD
     # Paleta de colores (puede ampliarse o repetirse si hay más columnas)
     colores = sns.color_palette("Set2", n_colors=len(numerical_cols))
+=======
+>>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
 =======
 >>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
     num_cols = len(numerical_cols)
@@ -396,7 +428,11 @@ def analyze_outliers(df):
     axes = axes.flatten()
     for i, col in enumerate(numerical_cols):
 <<<<<<< HEAD
+<<<<<<< HEAD
         sns.boxplot(ax=axes[i], data=df, y=col, color=colores[i % len(colores)])
+=======
+        sns.boxplot(ax=axes[i], data=df, y=col)
+>>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
 =======
         sns.boxplot(ax=axes[i], data=df, y=col)
 >>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
@@ -459,7 +495,11 @@ def infer_new_features(df_sin_outliers):
     return df_sin_outliers
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 def feature_scaling(df, df_sin_outliers, ruta_guardado="../data/processed/X&Ys"):
+=======
+def feature_scaling(df, df_sin_outliers, ruta_guardado="../data/processed/"):
+>>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
 =======
 def feature_scaling(df, df_sin_outliers, ruta_guardado="../data/processed/"):
 >>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
@@ -480,7 +520,11 @@ def feature_scaling(df, df_sin_outliers, ruta_guardado="../data/processed/"):
     return X_train_con_outliers, X_test_con_outliers, X_train_sin_outliers, X_test_sin_outliers, y_train, y_test, numerical_cols
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 def normalize_data(X_train_con_outliers, X_test_con_outliers, X_train_sin_outliers, X_test_sin_outliers, numerical_cols, ruta_guardado="../data/processed/X&Ys", ruta_modelo="../models/"):
+=======
+def normalize_data(X_train_con_outliers, X_test_con_outliers, X_train_sin_outliers, X_test_sin_outliers, numerical_cols, ruta_guardado="../data/processed/", ruta_modelo="../models/"):
+>>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
 =======
 def normalize_data(X_train_con_outliers, X_test_con_outliers, X_train_sin_outliers, X_test_sin_outliers, numerical_cols, ruta_guardado="../data/processed/", ruta_modelo="../models/"):
 >>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
@@ -509,7 +553,11 @@ def normalize_data(X_train_con_outliers, X_test_con_outliers, X_train_sin_outlie
     return X_train_con_outliers_norm, X_test_con_outliers_norm, X_train_sin_outliers_norm, X_test_sin_outliers_norm
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 def scale_min_max_data_1(X_train_con_outliers, X_test_con_outliers, X_train_sin_outliers, X_test_sin_outliers, numerical_cols, ruta_guardado="../data/processed/X&Ys", ruta_modelo="../models/"):
+=======
+def scale_min_max_data_1(X_train_con_outliers, X_test_con_outliers, X_train_sin_outliers, X_test_sin_outliers, numerical_cols, ruta_guardado="../data/processed/", ruta_modelo="../models/"):
+>>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
 =======
 def scale_min_max_data_1(X_train_con_outliers, X_test_con_outliers, X_train_sin_outliers, X_test_sin_outliers, numerical_cols, ruta_guardado="../data/processed/", ruta_modelo="../models/"):
 >>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
@@ -573,7 +621,11 @@ def scale_min_max_data_1(X_train_con_outliers, X_test_con_outliers, X_train_sin_
         return None, None, None, None
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 def feature_selection(X_train_con_outliers, X_test_con_outliers, X_train_sin_outliers, X_test_sin_outliers, y_train, y_test, target_column, ruta_modelo="../models/"):
+=======
+def feature_selection(X_train_con_outliers, X_test_con_outliers, X_train_sin_outliers, X_test_sin_outliers, X_train_con_outliers_norm, X_test_con_outliers_norm, X_train_sin_outliers_norm, X_test_sin_outliers_norm, X_train_con_outliers_scal, X_test_con_outliers_scal, X_train_sin_outliers_scal, X_test_sin_outliers_scal, y_train, y_test, target_column, ruta_modelo="../models/"):
+>>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
 =======
 def feature_selection(X_train_con_outliers, X_test_con_outliers, X_train_sin_outliers, X_test_sin_outliers, X_train_con_outliers_norm, X_test_con_outliers_norm, X_train_sin_outliers_norm, X_test_sin_outliers_norm, X_train_con_outliers_scal, X_test_con_outliers_scal, X_train_sin_outliers_scal, X_test_sin_outliers_scal, y_train, y_test, target_column, ruta_modelo="../models/"):
 >>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
@@ -591,7 +643,10 @@ def feature_selection(X_train_con_outliers, X_test_con_outliers, X_train_sin_out
         elif dataset_name == "X_test_sin_outliers":
             feature_selection_dataset = X_test_sin_outliers
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
         elif dataset_name == "X_train_con_outliers_norm":
             feature_selection_dataset = X_train_con_outliers_norm
         elif dataset_name == "X_train_sin_outliers_norm":
@@ -608,6 +663,9 @@ def feature_selection(X_train_con_outliers, X_test_con_outliers, X_train_sin_out
             feature_selection_dataset = X_test_con_outliers_scal
         elif dataset_name == "X_test_sin_outliers_scal":
             feature_selection_dataset = X_test_sin_outliers_scal
+<<<<<<< HEAD
+>>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
+=======
 >>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
         else:
             raise ValueError("Nombre de dataset no válido.")
@@ -627,8 +685,11 @@ def feature_selection(X_train_con_outliers, X_test_con_outliers, X_train_sin_out
     elif dataset_name == "X_train_sin_outliers":
         x_test_sel = pd.DataFrame(modelo_seleccion.transform(X_test_sin_outliers), columns=X_test_sin_outliers.columns.values[ix])
 <<<<<<< HEAD
+<<<<<<< HEAD
     
 =======
+=======
+>>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
     elif dataset_name == "X_train_con_outliers_norm":
         x_test_sel = pd.DataFrame(modelo_seleccion.transform(X_test_con_outliers_norm), columns=X_test_con_outliers_norm.columns.values[ix])
     elif dataset_name == "X_train_sin_outliers_norm":
@@ -637,6 +698,9 @@ def feature_selection(X_train_con_outliers, X_test_con_outliers, X_train_sin_out
         x_test_sel = pd.DataFrame(modelo_seleccion.transform(X_test_con_outliers_scal), columns=X_test_con_outliers_scal.columns.values[ix])
     elif dataset_name == "X_train_sin_outliers_scal":
         x_test_sel = pd.DataFrame(modelo_seleccion.transform(X_test_sin_outliers_scal), columns=X_test_sin_outliers_scal.columns.values[ix])
+<<<<<<< HEAD
+>>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
+=======
 >>>>>>> 952ef6410589361e5a08e24ef4d90ad354321b26
     
     x_train_sel[target_column] = list(y_train)
