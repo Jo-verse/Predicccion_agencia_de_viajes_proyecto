@@ -181,25 +181,19 @@ def correlation_analysis(df):
     plt.show()
 
 def categorical_numerical_correlation(df):
-    categorical_cols = df.select_dtypes(include=['object', 'category']).columns
+    """Correlación entre variables categóricas y numéricas."""
     numerical_cols = df.select_dtypes(include=['number']).columns
+    categorical_cols = df.select_dtypes(include=['object']).columns
 
-    for categorical_col in categorical_cols:
-        for numerical_col in numerical_cols:
-            # Eliminar filas con valores nulos
-            subset_df = df.dropna(subset=[categorical_col, numerical_col])
-
-            # Asegurarse de que la columna categórica sea de tipo categórico
-            subset_df[categorical_col] = subset_df[categorical_col].astype('category')
-
-            # Verificar que haya datos para cada categoría
-            if subset_df[categorical_col].nunique() > 0:
-                plt.figure(figsize=(10, 6))
-                sns.boxplot(x=categorical_col, y=numerical_col, data=subset_df)
+    if len(numerical_cols) > 0 and len(categorical_cols) > 0:
+        for categorical_col in categorical_cols:
+            plt.figure(figsize=(10, 6))
+            for numerical_col in numerical_cols:
+                sns.boxplot(x=categorical_col, y=numerical_col, data=df)
                 plt.title(f'{numerical_col} por {categorical_col}')
                 plt.show()
-            else:
-                print(f"No hay datos suficientes para {categorical_col} y {numerical_col}")
+    else:
+        print("No hay suficientes columnas numéricas y/o categóricas para generar los gráficos de correlación.")
 
 def pairplot_analysis(df):
     """4. Análisis de toda la data en una."""
@@ -377,7 +371,7 @@ def scale_min_max_data_1(X_train_con_outliers, X_test_con_outliers, X_train_sin_
         print(f"Error en scale_min_max_data: {e}")
         return None, None, None, None
 
-def feature_selection(X_train_con_outliers, X_test_con_outliers, X_train_sin_outliers, X_test_sin_outliers, y_train, y_test, target_column, ruta_modelo="../models/"):
+def feature_selection(X_train_con_outliers, X_test_con_outliers, X_train_sin_outliers, X_test_sin_outliers, X_train_con_outliers_norm, X_test_con_outliers_norm, X_train_sin_outliers_norm, X_test_sin_outliers_norm, X_train_con_outliers_scal, X_test_con_outliers_scal, X_train_sin_outliers_scal, X_test_sin_outliers_scal, y_train, y_test, target_column, ruta_modelo="../models/"):
     """7. Feature Selection."""
     try:
         feature_selection_k = int(input("Ingrese el valor de k para la selección de características: "))
@@ -391,6 +385,22 @@ def feature_selection(X_train_con_outliers, X_test_con_outliers, X_train_sin_out
             feature_selection_dataset = X_test_con_outliers
         elif dataset_name == "X_test_sin_outliers":
             feature_selection_dataset = X_test_sin_outliers
+        elif dataset_name == "X_train_con_outliers_norm":
+            feature_selection_dataset = X_train_con_outliers_norm
+        elif dataset_name == "X_train_sin_outliers_norm":
+            feature_selection_dataset = X_train_sin_outliers_norm
+        elif dataset_name == "X_test_con_outliers_norm":
+            feature_selection_dataset = X_test_con_outliers_norm
+        elif dataset_name == "X_test_sin_outliers_norm":
+            feature_selection_dataset = X_test_sin_outliers_norm
+        elif dataset_name == "X_train_con_outliers_scal":
+            feature_selection_dataset = X_train_con_outliers_scal
+        elif dataset_name == "X_train_sin_outliers_scal":
+            feature_selection_dataset = X_train_sin_outliers_scal
+        elif dataset_name == "X_test_con_outliers_scal":
+            feature_selection_dataset = X_test_con_outliers_scal
+        elif dataset_name == "X_test_sin_outliers_scal":
+            feature_selection_dataset = X_test_sin_outliers_scal
         else:
             raise ValueError("Nombre de dataset no válido.")
     except ValueError as e:
@@ -408,7 +418,14 @@ def feature_selection(X_train_con_outliers, X_test_con_outliers, X_train_sin_out
         x_test_sel = pd.DataFrame(modelo_seleccion.transform(X_test_con_outliers), columns=X_test_con_outliers.columns.values[ix])
     elif dataset_name == "X_train_sin_outliers":
         x_test_sel = pd.DataFrame(modelo_seleccion.transform(X_test_sin_outliers), columns=X_test_sin_outliers.columns.values[ix])
-    
+    elif dataset_name == "X_train_con_outliers_norm":
+        x_test_sel = pd.DataFrame(modelo_seleccion.transform(X_test_con_outliers_norm), columns=X_test_con_outliers_norm.columns.values[ix])
+    elif dataset_name == "X_train_sin_outliers_norm":
+        x_test_sel = pd.DataFrame(modelo_seleccion.transform(X_test_sin_outliers_norm), columns=X_test_sin_outliers_norm.columns.values[ix])
+    elif dataset_name == "X_train_con_outliers_scal":
+        x_test_sel = pd.DataFrame(modelo_seleccion.transform(X_test_con_outliers_scal), columns=X_test_con_outliers_scal.columns.values[ix])
+    elif dataset_name == "X_train_sin_outliers_scal":
+        x_test_sel = pd.DataFrame(modelo_seleccion.transform(X_test_sin_outliers_scal), columns=X_test_sin_outliers_scal.columns.values[ix])
     
     x_train_sel[target_column] = list(y_train)
     x_test_sel[target_column] = list(y_test)
