@@ -22,3 +22,5 @@ selenium
 webdriver-manager
 selenium-wire
 dask
+streamlit
+openpyxl
