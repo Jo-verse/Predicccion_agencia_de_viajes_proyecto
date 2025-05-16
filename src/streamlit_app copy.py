@@ -93,7 +93,6 @@ origen = st.selectbox("🛫 Ciudad de origen", sorted(full_df["origin_city"].dro
 precio_x = st.slider("💰 Precio estimado vuelo (€)", 50, 1000, 150)
 precio_y = st.slider("🏨 Precio estimado hotel (€)", 20, 500, 100)
 distancia = st.slider("📍 Distancia al centro (km)", 0, 20, 2)
-
 # Botón de predicción
 if st.button("🔍 Recomiéndame destinos"):
     input_dict = {
@@ -108,9 +107,21 @@ if st.button("🔍 Recomiéndame destinos"):
         'distance_to_city_center_km': distancia
     }
     X_user = construir_input_usuario(input_dict, columnas_modelo)
+    
     try:
+        # Realiza la predicción de probabilidades
         probs = model.predict_proba(X_user)[0]
+        
+        # Muestra las 5 recomendaciones más probables
+        top_indices = probs.argsort()[-5:][::-1]  # Ordena y selecciona las 5 mejores
+        destinos_recomendados = [nombre_destinos[i] for i in top_indices]
+        probabilidades = [probs[i] for i in top_indices]
+
+        # Muestra los resultados
+        st.success("🔍 Recomendaciones generadas con éxito")
+        for destino, prob in zip(destinos_recomendados, probabilidades):
+            st.write(f"🗺️ **{destino}** - Probabilidad: {prob:.2%}")
+        
     except Exception as e:
         st.error(f"Error en la predicción: {e}")
         st.stop()
-    st.success("🔍 Recomendaciones generadas con éxito")
