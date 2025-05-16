@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import joblib
+import joblib 
 import json
 
 # ========================
@@ -14,7 +14,7 @@ full_df = pd.read_csv("../data/processed/total_data_240k.csv")
 
 with open("../data/processed/Json/ciudad_transformation_rules.json") as f:
     ciudad_mapping = json.load(f)
-id_to_ciudad = {str(v): k for k, v in ciudad_mapping.items()}pip n
+id_to_ciudad = {str(v): k for k, v in ciudad_mapping.items()}pip
 
 # ========================
 # 2. Función para construir input del usuario
