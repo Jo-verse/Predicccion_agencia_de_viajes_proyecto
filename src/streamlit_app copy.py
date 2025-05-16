@@ -4,7 +4,6 @@ import numpy as np
 import joblib
 import json
 import os
-
 # ========================
 # Estilo de la app
 # ========================
@@ -24,7 +23,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
 # ========================
 # Cargar archivos
 # ========================
@@ -46,9 +44,7 @@ def cargar_archivos():
         st.error(f":x: Error cargando archivos: {e}")
         st.stop()
     return model, le, columnas_modelo, full_df, id_to_ciudad
-
 model, le, columnas_modelo, full_df, id_to_ciudad = cargar_archivos()
-
 # ========================
 # Construir input del usuario
 # ========================
@@ -63,25 +59,22 @@ def construir_input_usuario(valores_dict, columnas_modelo):
         if col in valores_dict:
             df.at[0, col] = valores_dict[col]
     return df
-
 # ========================
 # Interfaz de usuario
 # ========================
-st.title("✨ Encuentra tu Próximo Destino Ideal ✈️")
+st.title(":destellos: Encuentra tu Próximo Destino Ideal :avión:")
 st.write("Explora, sueña y planea tu próxima aventura con nuestras recomendaciones personalizadas.")
-
-st.sidebar.header("🎯 Filtros de Búsqueda")
-perfil = st.sidebar.selectbox("🧳 Perfil de Viajero", sorted(full_df["perfil_viajero"].dropna().unique()))
-entorno = st.sidebar.selectbox("🏔️ Tipo de Entorno", sorted(full_df["entornos"].dropna().unique()))
-clasificacion = st.sidebar.selectbox("🏷️ Tipo de Experiencia", sorted(full_df["clasificacion_destino"].dropna().unique()))
-temporada = st.sidebar.selectbox("📅 Temporada", sorted(full_df["temporada"].dropna().unique()))
-clase = st.sidebar.selectbox("🛫 Clase del Vuelo", sorted(full_df["class"].dropna().unique()))
-origen = st.sidebar.selectbox("🛫 Ciudad de Origen", sorted(full_df["origin_city"].dropna().unique()))
-precio_x = st.sidebar.slider("💰 Precio Estimado Vuelo (€)", 50, 1000, 150)
-precio_y = st.sidebar.slider("🏨 Precio Estimado Hotel (€)", 20, 500, 100)
-distancia = st.sidebar.slider("📏 Distancia al Centro (km)", 0, 20, 2)
-
-if st.sidebar.button("🔍 Recomiéndame Destinos"):
+st.sidebar.header(":dardo: Filtros de Búsqueda")
+perfil = st.sidebar.selectbox(":equipaje: Perfil de Viajero", sorted(full_df["perfil_viajero"].dropna().unique())).strip().title()
+entorno = st.sidebar.selectbox(":amanecer_sobre_las_montañas: Tipo de Entorno", sorted(full_df["entornos"].dropna().unique())).strip().title()
+clasificacion = st.sidebar.selectbox(":etiqueta: Tipo de Experiencia", sorted(full_df["clasificacion_destino"].dropna().unique())).strip().title()
+temporada = st.sidebar.selectbox(":calendario: Temporada", sorted(full_df["temporada"].dropna().unique())).strip().title()
+clase = st.sidebar.selectbox(":asiento: Clase del Vuelo", sorted(full_df["class"].dropna().unique())).strip().title()
+origen = st.sidebar.selectbox(":avión_despegando: Ciudad de Origen", sorted(full_df["origin_city"].dropna().unique())).strip().title()
+precio_x = st.sidebar.slider(":bolsa_de_dinero: Precio Estimado Vuelo (€)", 50, 1000, 150)
+precio_y = st.sidebar.slider(":hotel: Precio Estimado Hotel (€)", 20, 500, 100)
+distancia = st.sidebar.slider(":tachuela_redonda: Distancia al Centro (km)", 0, 20, 2)
+if st.sidebar.button(":lupa: Recomiéndame Destinos"):
     input_dict = {
         'perfil_viajero_n': perfil,
         'entornos_n': entorno,
@@ -97,14 +90,14 @@ if st.sidebar.button("🔍 Recomiéndame Destinos"):
     try:
         probs = model.predict_proba(X_user)[0]
         destinos_recomendados = np.argsort(probs)[-5:][::-1]
-        st.success("✨ Recomendaciones generadas con éxito")
+        st.success(":lupa: Recomendaciones generadas con éxito")
         for destino_id in destinos_recomendados:
             nombre = id_to_ciudad[str(destino_id)].capitalize()
-            st.subheader(f"⭐ {nombre}")
-            st.write(f"📍 Ubicación: {nombre}")
-            st.write(f"💶 Precio medio del vuelo: {precio_x}€")
-            st.write(f"🏨 Precio medio del hotel: {precio_y}€")
-            st.write(f"📏 Distancia al centro: {distancia} km")
+            st.subheader(f":estrella: {nombre}")
+            st.write(f":tachuela_redonda: Ubicación: {nombre}")
+            st.write(f":dinero_con_alas: Precio medio del vuelo: {precio_x}€")
+            st.write(f":hotel: Precio medio del hotel: {precio_y}€")
+            st.write(f":regla: Distancia al centro: {distancia} km")
             st.divider()
     except Exception as e:
-        st.error(f"⚠️ Error en la predicción: {e}")
+        st.error(f":advertencia: Error en la predicción: {e}")
