@@ -47,54 +47,23 @@ def construir_input_usuario(valores_dict, columnas_modelo):
     return df
 
 # ========================
-# Funciones de enriquecimiento
-# ========================
-def get_clima_estimado(ciudad, temporada):
-    clima = full_df[(full_df["ciudad"] == ciudad) & (full_df["temporada"] == temporada)]
-    if clima.empty:
-        return None
-    datos = clima[['temp_max', 'temp_min', 'precipitacion', 'humedad_actual']].mean(numeric_only=True).round(1).to_dict()
-    datos['desc_actual'] = clima['desc_actual'].mode()[0] if 'desc_actual' in clima.columns and not clima['desc_actual'].mode().empty else "N/A"
-    return datos
-
-def get_eventos(ciudad, temporada):
-    eventos = full_df[(full_df['ciudad'] == ciudad) & (full_df['temporada'] == temporada)].dropna(subset=['evento_nombre', 'evento_categoria', 'evento_desc', 'fecha']).drop_duplicates()
-    if eventos.empty:
-        return None
-    return eventos.head(3).to_dict(orient='records')
-
-def get_precio_vuelo(origen, destino):
-    vuelos = full_df[(full_df['origin_city'] == origen) & (full_df['ciudad'] == destino)]
-    if vuelos.empty:
-        return None
-    info = vuelos[['flight_price', 'flight_duration_hr']].dropna().mean(numeric_only=True).round(1).to_dict()
-    info['airline'] = vuelos['airline'].mode()[0] if 'airline' in vuelos and not vuelos['airline'].mode().empty else "N/A"
-    info['stops'] = vuelos['stops'].mode()[0] if 'stops' in vuelos and not vuelos['stops'].mode().empty else "N/A"
-    info['class'] = vuelos['class'].mode()[0] if 'class' in vuelos and not vuelos['class'].mode().empty else "N/A"
-    return info
-
-def get_hotel(ciudad):
-    hoteles = full_df[full_df['ciudad'] == ciudad].dropna(subset=['hotel_name', 'estimated_price_eur_y', 'hotel_type', 'category', 'hotel_type_1', 'distance_to_city_center_km'])
-    if hoteles.empty:
-        return None
-    hotel = hoteles.sort_values('estimated_price_eur_y').head(1)
-    return hotel[['hotel_name', 'estimated_price_eur_y', 'hotel_type', 'category', 'hotel_type_1', 'distance_to_city_center_km']].to_dict(orient='records')[0]
-
-# ========================
 # Interfaz de usuario
 # ========================
-st.title("🌍 Encuentra tu próximo destino ideal")
-perfil = st.selectbox("🧳 ¿Perfil de viajero?", sorted(full_df["perfil_viajero"].dropna().unique()))
-entorno = st.selectbox("🌄 Tipo de entorno", sorted(full_df["entornos"].dropna().unique()))
-clasificacion = st.selectbox("🎯 Tipo de experiencia", sorted(full_df["clasificacion_destino"].dropna().unique()))
-temporada = st.selectbox("📆 Temporada", sorted(full_df["temporada"].dropna().unique()))
-clase = st.selectbox("💺 Clase del vuelo", sorted(full_df["class"].dropna().unique()))
-origen = st.selectbox("🛫 Ciudad de origen", sorted(full_df["origin_city"].dropna().unique()))
-precio_x = st.slider("💰 Precio estimado vuelo (€)", 50, 1000, 150)
-precio_y = st.slider("🏨 Precio estimado hotel (€)", 20, 500, 100)
-distancia = st.slider("📍 Distancia al centro (km)", 0, 20, 2)
-# Botón de predicción
-if st.button("🔍 Recomiéndame destinos"):
+st.title("✨ Encuentra tu Próximo Destino Ideal ✈️")
+st.write("Explora, sueña y planea tu próxima aventura con nuestras recomendaciones personalizadas.")
+
+st.sidebar.header("🎯 Filtros de Búsqueda")
+perfil = st.sidebar.selectbox("🧳 Perfil de Viajero", sorted(full_df["perfil_viajero"].dropna().unique()))
+entorno = st.sidebar.selectbox("🌄 Tipo de Entorno", sorted(full_df["entornos"].dropna().unique()))
+clasificacion = st.sidebar.selectbox("🎯 Tipo de Experiencia", sorted(full_df["clasificacion_destino"].dropna().unique()))
+temporada = st.sidebar.selectbox("📆 Temporada", sorted(full_df["temporada"].dropna().unique()))
+clase = st.sidebar.selectbox("💺 Clase del Vuelo", sorted(full_df["class"].dropna().unique()))
+origen = st.sidebar.selectbox("🛫 Ciudad de Origen", sorted(full_df["origin_city"].dropna().unique()))
+precio_x = st.sidebar.slider("💰 Precio Estimado Vuelo (€)", 50, 1000, 150)
+precio_y = st.sidebar.slider("🏨 Precio Estimado Hotel (€)", 20, 500, 100)
+distancia = st.sidebar.slider("📍 Distancia al Centro (km)", 0, 20, 2)
+
+if st.sidebar.button("🔍 Recomiéndame Destinos"):
     input_dict = {
         'perfil_viajero_n': perfil,
         'entornos_n': entorno,
@@ -107,21 +76,17 @@ if st.button("🔍 Recomiéndame destinos"):
         'distance_to_city_center_km': distancia
     }
     X_user = construir_input_usuario(input_dict, columnas_modelo)
-    
     try:
-        # Realiza la predicción de probabilidades
         probs = model.predict_proba(X_user)[0]
-        
-        # Muestra las 5 recomendaciones más probables
-        top_indices = probs.argsort()[-5:][::-1]  # Ordena y selecciona las 5 mejores
-        destinos_recomendados = [nombre_destinos[i] for i in top_indices]
-        probabilidades = [probs[i] for i in top_indices]
-
-        # Muestra los resultados
+        destinos_recomendados = np.argsort(probs)[-5:][::-1]
         st.success("🔍 Recomendaciones generadas con éxito")
-        for destino, prob in zip(destinos_recomendados, probabilidades):
-            st.write(f"🗺️ **{destino}** - Probabilidad: {prob:.2%}")
-        
+        for destino_id in destinos_recomendados:
+            destino = id_to_ciudad[str(destino_id)]
+            st.subheader(f"🌟 {destino}")
+            st.write(f"📍 Ubicación: {destino}")
+            st.write(f"💸 Precio medio del vuelo: {precio_x}€")
+            st.write(f"🏨 Precio medio del hotel: {precio_y}€")
+            st.write(f"📏 Distancia al centro: {distancia} km")
+            st.divider()
     except Exception as e:
         st.error(f"Error en la predicción: {e}")
-        st.stop()
