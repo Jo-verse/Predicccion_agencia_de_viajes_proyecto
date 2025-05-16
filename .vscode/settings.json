@@ -1,6 +1,11 @@
 {
     "workbench.startupEditor": "readme",
     "workbench.editorAssociations": {
-        "*.md": "vscode.markdown.preview.editor"
+        "*.md": "vscode.markdown.preview.editor",
+        "*.copilotmd": "vscode.markdown.preview.editor",
+        "file:/**/*.csv": "jupyter-data-wrangler",
+        "file:/**/*.xlsx": "jupyter-data-wrangler",
+        "*.class": "default",
+        "*.pkl": "default"
     }
 }
