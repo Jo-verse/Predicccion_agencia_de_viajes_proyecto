@@ -6,7 +6,27 @@ import json
 import os
 
 # ========================
-# Configuración de rutas
+# Estilo de la app
+# ========================
+st.set_page_config(page_title="Destino Ideal", layout="wide")
+st.markdown(
+    """
+    <style>
+    .main {
+        background-color: #0F1117;
+        color: white;
+    }
+    .block-container {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# ========================
+# Cargar archivos
 # ========================
 @st.cache_data(show_spinner=False)
 def cargar_archivos():
@@ -14,7 +34,6 @@ def cargar_archivos():
     model_dir = os.path.join(base_dir, 'models')
     data_dir = os.path.join(base_dir, 'data', 'processed')
     json_dir = os.path.join(data_dir, 'Json')
-    
     try:
         model = joblib.load(os.path.join(model_dir, 'model_completo.pkl'))
         le = joblib.load(os.path.join(model_dir, 'label_encoder.pkl'))
@@ -24,15 +43,14 @@ def cargar_archivos():
             ciudad_mapping = json.load(f)
         id_to_ciudad = {str(v): k for k, v in ciudad_mapping.items()}
     except Exception as e:
-        st.error(f"Error cargando archivos necesarios: {e}")
+        st.error(f":x: Error cargando archivos: {e}")
         st.stop()
-
     return model, le, columnas_modelo, full_df, id_to_ciudad
 
 model, le, columnas_modelo, full_df, id_to_ciudad = cargar_archivos()
 
 # ========================
-# Función para construir input del usuario
+# Construir input del usuario
 # ========================
 def construir_input_usuario(valores_dict, columnas_modelo):
     df = pd.DataFrame(columns=columnas_modelo)
@@ -54,14 +72,14 @@ st.write("Explora, sueña y planea tu próxima aventura con nuestras recomendaci
 
 st.sidebar.header("🎯 Filtros de Búsqueda")
 perfil = st.sidebar.selectbox("🧳 Perfil de Viajero", sorted(full_df["perfil_viajero"].dropna().unique()))
-entorno = st.sidebar.selectbox("🌄 Tipo de Entorno", sorted(full_df["entornos"].dropna().unique()))
-clasificacion = st.sidebar.selectbox("🎯 Tipo de Experiencia", sorted(full_df["clasificacion_destino"].dropna().unique()))
-temporada = st.sidebar.selectbox("📆 Temporada", sorted(full_df["temporada"].dropna().unique()))
-clase = st.sidebar.selectbox("💺 Clase del Vuelo", sorted(full_df["class"].dropna().unique()))
+entorno = st.sidebar.selectbox("🏔️ Tipo de Entorno", sorted(full_df["entornos"].dropna().unique()))
+clasificacion = st.sidebar.selectbox("🏷️ Tipo de Experiencia", sorted(full_df["clasificacion_destino"].dropna().unique()))
+temporada = st.sidebar.selectbox("📅 Temporada", sorted(full_df["temporada"].dropna().unique()))
+clase = st.sidebar.selectbox("🛫 Clase del Vuelo", sorted(full_df["class"].dropna().unique()))
 origen = st.sidebar.selectbox("🛫 Ciudad de Origen", sorted(full_df["origin_city"].dropna().unique()))
 precio_x = st.sidebar.slider("💰 Precio Estimado Vuelo (€)", 50, 1000, 150)
 precio_y = st.sidebar.slider("🏨 Precio Estimado Hotel (€)", 20, 500, 100)
-distancia = st.sidebar.slider("📍 Distancia al Centro (km)", 0, 20, 2)
+distancia = st.sidebar.slider("📏 Distancia al Centro (km)", 0, 20, 2)
 
 if st.sidebar.button("🔍 Recomiéndame Destinos"):
     input_dict = {
@@ -69,7 +87,7 @@ if st.sidebar.button("🔍 Recomiéndame Destinos"):
         'entornos_n': entorno,
         'clasificacion_destino_n': clasificacion,
         'temporada_n': temporada,
-        'origin_city': origen,
+        'origin_city_n': origen,
         'class_n': clase,
         'estimated_price_eur_x': precio_x,
         'estimated_price_eur_y': precio_y,
@@ -79,14 +97,14 @@ if st.sidebar.button("🔍 Recomiéndame Destinos"):
     try:
         probs = model.predict_proba(X_user)[0]
         destinos_recomendados = np.argsort(probs)[-5:][::-1]
-        st.success("🔍 Recomendaciones generadas con éxito")
+        st.success("✨ Recomendaciones generadas con éxito")
         for destino_id in destinos_recomendados:
-            destino = id_to_ciudad[str(destino_id)]
-            st.subheader(f"🌟 {destino}")
-            st.write(f"📍 Ubicación: {destino}")
-            st.write(f"💸 Precio medio del vuelo: {precio_x}€")
+            nombre = id_to_ciudad[str(destino_id)].capitalize()
+            st.subheader(f"⭐ {nombre}")
+            st.write(f"📍 Ubicación: {nombre}")
+            st.write(f"💶 Precio medio del vuelo: {precio_x}€")
             st.write(f"🏨 Precio medio del hotel: {precio_y}€")
             st.write(f"📏 Distancia al centro: {distancia} km")
             st.divider()
     except Exception as e:
-        st.error(f"Error en la predicción: {e}")
+        st.error(f"⚠️ Error en la predicción: {e}")
