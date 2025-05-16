@@ -3,6 +3,14 @@ import pandas as pd
 import numpy as np
 import joblib 
 import json
+import os
+
+# Ruta absoluta al archivo del modelo
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(BASE_DIR, "..", "models", "model_completo.pkl")
+
+# Cargar el modelo
+model = joblib.load(model_path)
 
 # ========================
 # 1. Cargar modelo y utilidades
