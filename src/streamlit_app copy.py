@@ -1,28 +1,37 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import joblib 
+import joblib
 import json
 import os
 
-# Ruta absoluta al archivo del modelo
+# Mostrar la ruta actual para depuración
+st.write("Ruta actual:", os.getcwd())
+
+# Definir rutas absolutas relativas al script
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-model_path = os.path.join(BASE_DIR, "..", "models", "model_completo.pkl")
+MODEL_DIR = os.path.join(BASE_DIR, "..", "models")
+DATA_DIR = os.path.join(BASE_DIR, "..", "data", "processed")
+JSON_DIR = os.path.join(DATA_DIR, "Json")
 
-# Cargar el modelo
-model = joblib.load(model_path)
+model_path = os.path.join(MODEL_DIR, "model_completo.pkl")
+le_path = os.path.join(MODEL_DIR, "label_encoder.pkl")
+columns_path = os.path.join(DATA_DIR, "x_train_columns.csv")
+full_df_path = os.path.join(DATA_DIR, "total_data_240k.csv")
+ciudad_json_path = os.path.join(JSON_DIR, "ciudad_transformation_rules.json")
 
-# ========================
-# 1. Cargar modelo y utilidades
-# ========================
-model = joblib.load("../models/model_completo.pkl")
-le = joblib.load("../models/label_encoder.pkl")
-columnas_modelo = pd.read_csv("../data/processed/x_train_columns.csv", header=None).squeeze().tolist()
-full_df = pd.read_csv("../data/processed/total_data_240k.csv")
-
-with open("../data/processed/Json/ciudad_transformation_rules.json") as f:
-    ciudad_mapping = json.load(f)
-id_to_ciudad = {str(v): k for k, v in ciudad_mapping.items()}
+# Cargar modelo y utilidades con manejo de errores
+try:
+    model = joblib.load(model_path)
+    le = joblib.load(le_path)
+    columnas_modelo = pd.read_csv(columns_path, header=None).squeeze().tolist()
+    full_df = pd.read_csv(full_df_path)
+    with open(ciudad_json_path) as f:
+        ciudad_mapping = json.load(f)
+    id_to_ciudad = {str(v): k for k, v in ciudad_mapping.items()}
+except Exception as e:
+    st.error(f"Error cargando archivos necesarios: {e}")
+    st.stop()
 
 # ========================
 # 2. Función para construir input del usuario
@@ -46,17 +55,12 @@ def get_clima_estimado(ciudad, temporada):
     clima = full_df[(full_df["ciudad"] == ciudad) & (full_df["temporada"] == temporada)]
     if clima.empty:
         return None
-
-    # Media de variables numéricas
     datos = clima[["temp_max", "temp_min", "precipitacion", "humedad_actual"]].mean(numeric_only=True).round(1).to_dict()
-
-    # Modo de descripción del clima (texto)
     if "desc_actual" in clima.columns:
         desc = clima["desc_actual"].mode()
         datos["desc_actual"] = desc[0] if not desc.empty else "N/A"
     else:
         datos["desc_actual"] = "N/A"
-
     return datos
 
 def get_eventos(ciudad, temporada):
@@ -72,9 +76,9 @@ def get_precio_vuelo(origen, destino):
     if vuelos.empty:
         return None
     info = vuelos[["flight_price", "flight_duration_hr"]].dropna().mean(numeric_only=True).round(1).to_dict()
-    info["airline"] = vuelos["airline"].mode()[0] if "airline" in vuelos else "N/A"
-    info["stops"] = vuelos["stops"].mode()[0] if "stops" in vuelos else "N/A"
-    info["class"] = vuelos["class"].mode()[0] if "class" in vuelos else "N/A"
+    info["airline"] = vuelos["airline"].mode()[0] if "airline" in vuelos and not vuelos["airline"].mode().empty else "N/A"
+    info["stops"] = vuelos["stops"].mode()[0] if "stops" in vuelos and not vuelos["stops"].mode().empty else "N/A"
+    info["class"] = vuelos["class"].mode()[0] if "class" in vuelos and not vuelos["class"].mode().empty else "N/A"
     return info
 
 def get_hotel(ciudad):
@@ -118,7 +122,11 @@ if st.button("🔍 Recomiéndame destinos"):
     }
 
     X_user = construir_input_usuario(input_dict, columnas_modelo)
-    probs = model.predict_proba(X_user)[0]
+    try:
+        probs = model.predict_proba(X_user)[0]
+    except Exception as e:
+        st.error(f"Error en la predicción: {e}")
+        st.stop()
     top_indices = np.argsort(probs)[::-1]
 
     ciudades_mostradas = 0
@@ -131,7 +139,7 @@ if st.button("🔍 Recomiéndame destinos"):
             break
 
         ciudad_id = model.classes_[idx]
-        ciudad = id_to_ciudad[str(ciudad_id)]
+        ciudad = id_to_ciudad.get(str(ciudad_id), str(ciudad_id))
 
         clima = get_clima_estimado(ciudad, temporada)
         eventos = get_eventos(ciudad, temporada)
