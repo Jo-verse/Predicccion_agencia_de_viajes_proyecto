@@ -115,7 +115,7 @@ precio_y = st.sidebar.slider("🏨 Precio Estimado Hotel (€)", 20, 500, 100)
 distancia = st.sidebar.slider("📍 Distancia al Centro (km)", 0, 20, 2)
 
 # ======== BOTÓN DE PREDICCIÓN ========
-if st.sidebar.button("🔎 Recomendáme Destinos"):
+if st.sidebar.button("🔎 Recomiéndame Destinos"):
     st.session_state.predicted = True
     st.session_state.n_destinos = 5
 
