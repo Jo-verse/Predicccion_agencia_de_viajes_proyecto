@@ -189,22 +189,34 @@ if st.session_state.predicted:
     mostradas = 0
     sin_eventos_mostrado = False
 
-    for idx in top_indices:
-        if mostradas == st.session_state.n_destinos:
-            break
-        ciudad_id = model.classes_[idx]
-        ciudad_raw = id_to_ciudad[str(ciudad_id)]
-        ciudad = ciudad_raw.title()
-        clima = get_clima_estimado(ciudad_raw, temporada)
-        eventos = get_eventos(ciudad_raw, temporada)
-        vuelo = get_precio_vuelo(origen, ciudad_raw)
-        hotel = get_hotel(ciudad_raw)
-        if None in (clima, vuelo, hotel):
-            continue
-        if eventos is None and sin_eventos_mostrado:
-            continue
-            
-        mostradas += 1
+for idx in top_indices:
+    if mostradas == st.session_state.n_destinos:
+        break
+
+    ciudad_id = model.classes_[idx]
+    ciudad_raw = id_to_ciudad[str(ciudad_id)]
+    ciudad = ciudad_raw.title()
+
+    clima = get_clima_estimado(ciudad_raw, temporada)
+    eventos = get_eventos(ciudad_raw, temporada)
+    vuelo = get_precio_vuelo(origen, ciudad_raw, clase)
+    hotel = get_hotel(ciudad_raw)
+
+    if None in (clima, vuelo, hotel):
+        continue
+
+    # ✅ Validar que respete los filtros del usuario
+    if (
+        vuelo["flight_price"] > precio_x or
+        hotel["estimated_price_eur_y"] > precio_y or
+        hotel["distance_to_city_center_km"] > distancia
+    ):
+        continue
+
+    if eventos is None and sin_eventos_mostrado:
+        continue
+
+    mostradas += 1
 
         with st.expander(f"🌏 {ciudad} — Recomendación #{mostradas}", expanded=True):
             st.markdown("<div class='card'>", unsafe_allow_html=True)
