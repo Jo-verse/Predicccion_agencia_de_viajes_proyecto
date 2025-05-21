@@ -199,11 +199,20 @@ if st.session_state.predicted:
 
         clima = get_clima_estimado(ciudad_raw, temporada)
         eventos = get_eventos(ciudad_raw, temporada)
-        vuelo = get_precio_vuelo(origen, ciudad_raw, clase)
+        vuelo = get_precio_vuelo(origen, ciudad_raw)
         hotel = get_hotel(ciudad_raw)
 
         if None in (clima, vuelo, hotel):
             continue
+
+        # APLICAR FILTROS DE PRECIO Y DISTANCIA
+        if (
+            vuelo["flight_price"] > precio_x or
+            hotel["estimated_price_eur_y"] > precio_y or
+            hotel["distance_to_city_center_km"] > distancia
+        ):
+            continue
+
         if eventos is None and sin_eventos_mostrado:
             continue
 
